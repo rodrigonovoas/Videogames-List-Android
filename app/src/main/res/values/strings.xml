@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">My Videogames List</string>
+
+    <string name="username_dialog_title">Introduce username</string>
+    <string name="username_dialog_button">Continue</string>
 </resources>

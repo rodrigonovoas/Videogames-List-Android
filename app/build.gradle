@@ -58,6 +58,7 @@ dependencies {
     // easy-to-use dialogs
     def material_dialogs_version = "3.3.0"
     implementation "com.afollestad.material-dialogs:core:$material_dialogs_version"
+    implementation "com.afollestad.material-dialogs:input:$material_dialogs_version"
 
     // network libraries
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
