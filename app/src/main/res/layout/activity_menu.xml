@@ -1,91 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.menu.MenuActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/color_secondary"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_weight="1">
 
-            <ImageView
-                android:layout_width="85.3dp"
-                android:layout_height="85.3dp"
-                android:src="@drawable/menu_games_icon" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Videogames"
-                android:textSize="16dp"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"/>
+            <LinearLayout
+                android:id="@+id/ll_videogames"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/color_secondary"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="85.3dp"
+                    android:layout_height="85.3dp"
+                    android:src="@drawable/menu_games_icon" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Videogames"
+                    android:textSize="16dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_my_list"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/color_complement_2"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="85.3dp"
+                    android:layout_height="85.3dp"
+                    android:src="@drawable/menu_mylist_icon"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="My Records"
+                    android:textSize="16dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_pending_games"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/color_secondary"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="85.3dp"
+                    android:layout_height="85.3dp"
+                    android:src="@drawable/menu_pending_icon"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:textSize="16dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/color_complement_2"
-            android:gravity="center"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:gravity="right"
+            android:background="@color/color_primary">
             <ImageView
-                android:layout_width="85.3dp"
-                android:layout_height="85.3dp"
-                android:src="@drawable/menu_mylist_icon"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="My Records"
-                android:textSize="16dp"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/color_secondary"
-            android:gravity="center"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="85.3dp"
-                android:layout_height="85.3dp"
-                android:src="@drawable/menu_pending_icon"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pending"
-                android:textSize="16dp"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"/>
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/menu_options_icon"/>
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:gravity="right"
-        android:background="@color/color_primary">
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/menu_options_icon"/>
-    </LinearLayout>
-
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        tools:context=".ui.menu.MenuActivity"
+        android:id="@+id/root_container">
+    </FrameLayout>
+</RelativeLayout>

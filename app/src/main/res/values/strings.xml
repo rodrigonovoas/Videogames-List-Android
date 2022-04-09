@@ -3,4 +3,6 @@
 
     <string name="username_dialog_title">Introduce username</string>
     <string name="username_dialog_button">Continue</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

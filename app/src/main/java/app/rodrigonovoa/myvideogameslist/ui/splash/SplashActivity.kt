@@ -28,7 +28,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val context = this@SplashActivity
-
         startAnimation(context)
     }
 

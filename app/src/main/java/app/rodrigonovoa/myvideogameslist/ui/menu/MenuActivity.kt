@@ -2,11 +2,37 @@ package app.rodrigonovoa.myvideogameslist.ui.menu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import app.rodrigonovoa.myvideogameslist.R
+import app.rodrigonovoa.myvideogameslist.databinding.ActivityMenuBinding
+import app.rodrigonovoa.myvideogameslist.databinding.ActivitySplashBinding
+import app.rodrigonovoa.myvideogameslist.ui.gamesList.GamesListFragment
+import app.rodrigonovoa.myvideogameslist.ui.myList.MyListFragment
+import app.rodrigonovoa.myvideogameslist.ui.pendingGames.PendingGamesFragment
+
 
 class MenuActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMenuBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // fragments
+        val gamesFragment = GamesListFragment()
+        val myListFragment = MyListFragment()
+        val pendingGamesFragment = PendingGamesFragment()
+        // view listeners
+        binding.llVideogames.setOnClickListener { attachFragment(gamesFragment) }
+        binding.llMyList.setOnClickListener { attachFragment(myListFragment) }
+        binding.llPendingGames.setOnClickListener { attachFragment(pendingGamesFragment) }
+    }
+
+    private fun attachFragment(fragment: Fragment?){
+        if (fragment == null) return
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.root_container, fragment)
+            .commit()
     }
 }
