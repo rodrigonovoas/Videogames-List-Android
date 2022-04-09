@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.ui.splash
 
+import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import app.rodrigonovoa.myvideogameslist.databinding.ActivitySplashBinding
 import app.rodrigonovoa.myvideogameslist.ui.menu.MenuActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
+import com.airbnb.lottie.LottieAnimationView
 
 /**
  * Splash Activity to show information about the project,
@@ -19,7 +21,6 @@ import com.afollestad.materialdialogs.input.input
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
-    private val TIME_SPLASH_SCREEN = 2500L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +28,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val context = this@SplashActivity
-        // dialog to store username
+
         startAnimation(context)
-        setTimerAndExit(context)
     }
 
     private fun createUserDialog(context: Context){
@@ -48,15 +48,6 @@ class SplashActivity : AppCompatActivity() {
             cancelOnTouchOutside(false)
         }
     }
-    private fun setTimerAndExit(context: Context) {
-        val handler = Handler()
-        handler.postDelayed({
-            // TODO: check if user is stored; then move to the main activity
-            createUserDialog(context)
-            //openMainMenu(context)
-            //this.finish()
-        }, TIME_SPLASH_SCREEN)
-    }
 
     private fun openMainMenu(context: Context){
         val intent = Intent(context, MenuActivity::class.java)
@@ -64,8 +55,26 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun startAnimation(context: Context){
-        val animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        binding.root.startAnimation(animation)
+    private fun startAnimation(context:Context){
+        binding.lottieSplashAnim.setAnimation(R.raw.splash_anim)
+        binding.lottieSplashAnim.playAnimation()
+
+        binding.lottieSplashAnim.addAnimatorListener(object : Animator.AnimatorListener {
+            var cont = 0
+            override fun onAnimationRepeat(animation: Animator?) {}
+            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationStart(animation: Animator?) {}
+
+            override fun onAnimationEnd(animation: Animator?) {
+                if(cont <2){
+                    binding.lottieSplashAnim.playAnimation()
+                    cont++
+                }else if (cont == 2){
+                    // TODO: if username is not stored, ask for it
+                    // createUserDialog(context)
+                    openMainMenu(context)
+                }
+            }
+        })
     }
 }
