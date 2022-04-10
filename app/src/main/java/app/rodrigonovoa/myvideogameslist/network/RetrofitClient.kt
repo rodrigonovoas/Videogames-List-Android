@@ -2,15 +2,17 @@ package app.rodrigonovoa.myvideogameslist.network
 
 import app.rodrigonovoa.myvideogameslist.Constants
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class RetrofitProvier {
+class RetrofitClient {
     private var retrofit: Retrofit? = null
 
+    // TODO: use moshi instead of gson
     fun getRetrofit(): Retrofit {
         retrofit = Retrofit.Builder()
             .baseUrl(Constants.API_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         return retrofit!!
