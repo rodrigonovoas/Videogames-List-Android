@@ -1,19 +1,23 @@
 package app.rodrigonovoa.myvideogameslist.ui.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
 import com.bumptech.glide.Glide
 
 class CommonListAdapter(private val list: List<GameResponse>) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cardViewGame: CardView
         val tvGameTitle: TextView
         val tvGameRelaseDate: TextView
         val tvGameMetacritic: TextView
@@ -24,6 +28,7 @@ class CommonListAdapter(private val list: List<GameResponse>) :
             tvGameRelaseDate = view.findViewById(R.id.tv_game_release_date)
             tvGameMetacritic = view.findViewById(R.id.tv_game_metacritic)
             imvGameImage = view.findViewById(R.id.imv_game)
+            cardViewGame = view.findViewById(R.id.card_view_game)
         }
     }
 
@@ -39,6 +44,7 @@ class CommonListAdapter(private val list: List<GameResponse>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
+        val context = viewHolder.imvGameImage.context
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.tvGameTitle.text = list[position].name
@@ -47,13 +53,17 @@ class CommonListAdapter(private val list: List<GameResponse>) :
 
         val imageSrc = list[position].background_image
         if(imageSrc != null && !imageSrc.isEmpty()){
-            Glide.with(viewHolder.imvGameImage.context)
+            Glide.with(context)
                 .load(imageSrc)
                 .into(viewHolder.imvGameImage);
         }else{
             viewHolder.imvGameImage.setImageResource(R.drawable.app_icon)
         }
 
+        viewHolder.cardViewGame.setOnClickListener {
+            val intent = Intent(context,GameDetailActivity::class.java)
+            intent.putExtra("gameid",list[position].id)
+            context.startActivity(intent) }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

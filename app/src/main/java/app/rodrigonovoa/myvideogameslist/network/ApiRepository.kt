@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.network
 
+import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ class ApiRepository(private val apiService: ApiService) {
         emit(gameList)
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getGameById(id: Int): Flow<Response<GameResponse?>> = flow {
+    suspend fun getGameById(id: Int): Flow<Response<GameDetailResponse?>> = flow {
         val game = apiService.getGameById(id).execute()
 
         emit(game)

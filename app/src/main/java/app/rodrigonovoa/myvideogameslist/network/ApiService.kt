@@ -1,6 +1,7 @@
 package app.rodrigonovoa.myvideogameslist.network
 
 import app.rodrigonovoa.myvideogameslist.Constants.Companion.KEY_ENDPOINT
+import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
 import retrofit2.Call
@@ -12,5 +13,5 @@ interface ApiService {
     fun getGames(): Call<GamesListResponse>
 
     @GET("games/{id}?" + KEY_ENDPOINT+ "")
-    fun getGameById(@Path("id") id: Int): Call<GameResponse>
+    fun getGameById(@Path("id") id: Int): Call<GameDetailResponse>
 }
