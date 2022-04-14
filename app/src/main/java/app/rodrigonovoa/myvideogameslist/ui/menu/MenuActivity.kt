@@ -5,8 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityMenuBinding
-import app.rodrigonovoa.myvideogameslist.ui.fragments.CommonListFragment
-import app.rodrigonovoa.myvideogameslist.ui.gamesList.GamesListFragment
+import app.rodrigonovoa.myvideogameslist.ui.sharedFragments.CommonListFragment
 import app.rodrigonovoa.myvideogameslist.ui.myList.MyListFragment
 import app.rodrigonovoa.myvideogameslist.ui.pendingGames.PendingGamesFragment
 import app.rodrigonovoa.myvideogameslist.ui.userOptions.UserOptionsFragment

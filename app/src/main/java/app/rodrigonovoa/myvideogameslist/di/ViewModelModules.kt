@@ -1,7 +1,7 @@
 package app.rodrigonovoa.myvideogameslist.di
 
 
-import app.rodrigonovoa.myvideogameslist.ui.fragments.CommonListViewModel
+import app.rodrigonovoa.myvideogameslist.ui.sharedFragments.CommonListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.network
 
+import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -12,5 +13,11 @@ class ApiRepository(private val apiService: ApiService) {
         val gameList = apiService.getGames().execute()
 
         emit(gameList)
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun getGameById(id: Int): Flow<Response<GameResponse?>> = flow {
+        val game = apiService.getGameById(id).execute()
+
+        emit(game)
     }.flowOn(Dispatchers.IO)
 }

@@ -1,4 +1,4 @@
-package app.rodrigonovoa.myvideogameslist.ui.fragments
+package app.rodrigonovoa.myvideogameslist.ui.sharedFragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,6 @@ import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.adapters.CommonListAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject
-import org.koin.core.component.getScopeId
 
 class CommonListFragment : Fragment() {
 
