@@ -2,16 +2,14 @@ package app.rodrigonovoa.myvideogameslist.ui.menu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.UserManager
 import androidx.fragment.app.Fragment
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityMenuBinding
-import app.rodrigonovoa.myvideogameslist.databinding.ActivitySplashBinding
+import app.rodrigonovoa.myvideogameslist.ui.fragments.CommonListFragment
 import app.rodrigonovoa.myvideogameslist.ui.gamesList.GamesListFragment
 import app.rodrigonovoa.myvideogameslist.ui.myList.MyListFragment
 import app.rodrigonovoa.myvideogameslist.ui.pendingGames.PendingGamesFragment
 import app.rodrigonovoa.myvideogameslist.ui.userOptions.UserOptionsFragment
-
 
 class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
@@ -22,7 +20,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // fragments
-        val gamesFragment = GamesListFragment()
+        val gamesFragment = CommonListFragment()
         val myListFragment = MyListFragment()
         val pendingGamesFragment = PendingGamesFragment()
         val userOptionsFragment = UserOptionsFragment()

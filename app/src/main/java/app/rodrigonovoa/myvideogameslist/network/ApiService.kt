@@ -6,6 +6,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("games?" + KEY_ENDPOINT+ "&page=1&page_size=3")
+    @GET("games?" + KEY_ENDPOINT+ "&page=1&page_size=10")
     fun getGames(): Call<GamesListResponse>
 }
