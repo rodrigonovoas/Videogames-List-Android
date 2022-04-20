@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyVideogamesList">
         <activity
+            android:name=".ui.addRecord.AddRecordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.gameDetail.GameDetailActivity"
             android:exported="false" />
         <activity

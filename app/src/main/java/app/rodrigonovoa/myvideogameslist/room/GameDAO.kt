@@ -12,5 +12,8 @@ interface GameDAO {
     fun getAll(): List<Game>
 
     @Insert
-    fun insert(game: Game)
+    fun insert(game: Game): Long
+
+    @Query("SELECT * FROM Game WHERE gameid=:id ")
+    fun getGameById(id: Int): Game
 }

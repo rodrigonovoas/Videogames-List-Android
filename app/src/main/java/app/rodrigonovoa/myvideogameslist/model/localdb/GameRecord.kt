@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 ))
 
 data class GameRecord(
-    @PrimaryKey(autoGenerate = true) val gamerecordid: Int,
+    @PrimaryKey(autoGenerate = true) val gamerecordid: Int?,
     val gameid: Int,
     val userid: Int,
     val initdate: Long,

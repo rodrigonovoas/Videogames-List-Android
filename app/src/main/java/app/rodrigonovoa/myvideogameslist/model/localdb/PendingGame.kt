@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
 ))
 
 data class PendingGame(
-    @PrimaryKey(autoGenerate = true) val pendinggameid: Int,
+    @PrimaryKey(autoGenerate = true) val pendinggameid: Int?,
     val gameid: Int,
     val userid: Int,
     val note: String

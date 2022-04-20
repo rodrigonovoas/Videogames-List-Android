@@ -1,31 +1,41 @@
 package app.rodrigonovoa.myvideogameslist.ui.gameDetail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityGameDetailBinding
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.ui.addRecord.AddRecordActivity
 import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
 
 class GameDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameDetailBinding
     private val model: GameDetailViewModel by inject()
-    private lateinit var gameId: Number
+
+    private var id: Number = 0
+    private var fromRepo: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        gameId = intent.getIntExtra("gameid", 0)
+        id = intent.getIntExtra("id", 0)
+        fromRepo = intent.getBooleanExtra("fromRepo", true)
 
-        model.getGameFromRepo(gameId.toInt())
+        if(fromRepo){
+            model.getGameFromRepo(id.toInt())
+        }else{
+            model.getGameFromLocalDb(id.toInt())
+        }
 
         this.model.retrievedGame.observe(this) { game ->
             if(game != null){
                 setUpLayout(game)
+                setAddRecordClickListener(game)
             }
         }
     }
@@ -42,6 +52,13 @@ class GameDetailActivity : AppCompatActivity() {
         }else{
             binding.imvGameImage.setImageResource(R.drawable.app_icon)
         }
+    }
 
+    private fun setAddRecordClickListener(game: GameDetailResponse){
+        binding.btnAddRecord.setOnClickListener {
+            val intent = Intent(this, AddRecordActivity::class.java)
+            intent.putExtra("EXTRA_GAME", game)
+            startActivity(intent)
+        }
     }
 }

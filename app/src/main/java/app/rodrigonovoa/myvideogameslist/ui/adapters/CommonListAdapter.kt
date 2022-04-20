@@ -13,7 +13,7 @@ import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
 import com.bumptech.glide.Glide
 
-class CommonListAdapter(private val list: List<GameResponse>) :
+class CommonListAdapter(private val list: List<GameResponse>, private val listFromRepo: Boolean = true) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -43,7 +43,6 @@ class CommonListAdapter(private val list: List<GameResponse>) :
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         val context = viewHolder.imvGameImage.context
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
@@ -62,8 +61,10 @@ class CommonListAdapter(private val list: List<GameResponse>) :
 
         viewHolder.cardViewGame.setOnClickListener {
             val intent = Intent(context,GameDetailActivity::class.java)
-            intent.putExtra("gameid",list[position].id)
-            context.startActivity(intent) }
+            intent.putExtra("id",list[position].id)
+            intent.putExtra("fromRepo",listFromRepo)
+            context.startActivity(intent)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

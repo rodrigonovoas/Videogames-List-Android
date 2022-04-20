@@ -1,4 +1,4 @@
-package app.rodrigonovoa.myvideogameslist.ui.sharedFragments
+package app.rodrigonovoa.myvideogameslist.ui.commonFragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,10 +16,7 @@ import org.koin.android.ext.android.inject
 class CommonListFragment : Fragment() {
 
     private val model: CommonListViewModel by inject()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var isGamesList = true
 
     @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,15 +24,23 @@ class CommonListFragment : Fragment() {
 
         val recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
 
+        arguments?.getBoolean("EXTRA_GAME_LIST")?.let {
+            isGamesList = it
+        }
+
         this.model.gamesList.observe(viewLifecycleOwner) { gameList ->
             val games: List<GameResponse> = gameList?.results ?: listOf()
             if(games.size > 0){
                 recycler.layoutManager = LinearLayoutManager(context)
-                recycler.adapter = CommonListAdapter(games)
+                recycler.adapter = CommonListAdapter(games, isGamesList)
             }
         }
 
-        model.getGamesFromRepo()
+        if(isGamesList){
+            model.getGamesFromRepo()
+        }else{
+            model.getGamesFromLocalDb()
+        }
     }
 
     override fun onCreateView(
@@ -44,5 +49,15 @@ class CommonListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_common_list, container, false)
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(gameList: Boolean) = CommonListFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean("EXTRA_GAME_LIST", gameList)
+            }
+        }
     }
 }
