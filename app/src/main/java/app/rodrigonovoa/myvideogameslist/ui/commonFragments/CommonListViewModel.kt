@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.ui.commonFragments
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CommonListViewModel(private val repository: GamesListRepository, private val gamesDAO: GameDAO): ViewModel() {
-    val gamesList = MutableLiveData<GamesListResponse?>().apply { postValue(null)}
+    private val _gamesList = MutableLiveData<GamesListResponse>().apply { postValue(null)}
+    val gamesList: LiveData<GamesListResponse> get() = _gamesList
+
+    fun setGameList(list: GamesListResponse){
+        _gamesList.postValue(list)
+    }
 
     @InternalCoroutinesApi
     fun getGamesFromRepo(){
@@ -27,7 +33,7 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
                 .collect {
                     val list = it.body()
                     if(list != null){
-                        gamesList.value = list
+                        setGameList(list)
                     }
                 }
         }
@@ -38,7 +44,7 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
             val games = repository.getAllGamesFromDb()
 
             if (games.size > 0) {
-                gamesList.postValue(mapGameToGamesListResponse(games))
+                setGameList(mapGameToGamesListResponse(games))
             }
         }
     }
