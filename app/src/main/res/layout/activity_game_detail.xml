@@ -15,18 +15,18 @@
             android:id="@+id/imv_game_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/app_icon" />
+            android:src="@drawable/image_placeholder" />
 
         <TextView
             android:id="@+id/tv_game_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text=""
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="32dp"
             android:textStyle="bold" />
 
         <View
@@ -40,8 +40,9 @@
             android:id="@+id/tv_game_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20dp" />
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"/>
 
         <Button
             android:id="@+id/btn_add_record"

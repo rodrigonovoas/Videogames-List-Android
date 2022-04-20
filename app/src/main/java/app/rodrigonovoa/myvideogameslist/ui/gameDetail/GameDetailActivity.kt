@@ -3,6 +3,8 @@ package app.rodrigonovoa.myvideogameslist.ui.gameDetail
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.view.View
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityGameDetailBinding
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
@@ -26,22 +28,26 @@ class GameDetailActivity : AppCompatActivity() {
         fromRepo = intent.getBooleanExtra("fromRepo", true)
 
         if(fromRepo){
+            binding.btnAddRecord.visibility = View.VISIBLE
             model.getGameFromRepo(id.toInt())
         }else{
+            binding.btnAddRecord.visibility = View.GONE
             model.getGameFromLocalDb(id.toInt())
         }
 
         this.model.retrievedGame.observe(this) { game ->
             if(game != null){
                 setUpLayout(game)
-                setAddRecordClickListener(game)
+                if(fromRepo){
+                    setAddRecordClickListener(game)
+                }
             }
         }
     }
 
     private fun setUpLayout(game: GameDetailResponse){
         binding.tvGameTitle.text = game.name
-        binding.tvGameDescription.text = game.description
+        binding.tvGameDescription.text = Html.fromHtml(game.description)
 
         val imageSrc = game.background_image_additional
         if(imageSrc != null && !imageSrc.isEmpty()){
@@ -49,7 +55,7 @@ class GameDetailActivity : AppCompatActivity() {
                 .load(imageSrc)
                 .into(binding.imvGameImage);
         }else{
-            binding.imvGameImage.setImageResource(R.drawable.app_icon)
+            binding.imvGameImage.setImageResource(R.drawable.image_placeholder)
         }
     }
 

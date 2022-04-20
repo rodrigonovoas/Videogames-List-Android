@@ -22,6 +22,8 @@
     <string name="game_detail_add_to_record">ADD TO RECORDS</string>
 
     <!-- COMMON LIST -->
+    <string name="common_list_title_a">Games</string>
+    <string name="common_list_title_b">My Records</string>
     <string name="common_list_metacritic">Metacritic: </string>
 
 </resources>

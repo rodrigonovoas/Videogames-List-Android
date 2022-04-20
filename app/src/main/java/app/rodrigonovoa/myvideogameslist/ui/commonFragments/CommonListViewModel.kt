@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.ui.commonFragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,7 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
         viewModelScope.launch {
             repository.getGamesListFromRepository()
                 .catch {
+                    Log.d("COMMON_LIST","error")
                     // error handling
                 }
                 .collect {
@@ -51,9 +53,10 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
 
     private fun mapGameToGamesListResponse(games:List<Game>): GamesListResponse{
         var gameResponseDetailList: MutableList<GameResponse> = mutableListOf()
+
         games.forEach {
             gameResponseDetailList.add(
-                GameResponse(it.gameid!!, it.name, "", it.metacritic, it.image)
+                GameResponse(it.gameid!!, it.name, "21-04-2022", it.metacritic, listOf(), listOf(), it.image)
             )
         }
 

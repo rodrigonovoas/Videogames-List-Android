@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
-import app.rodrigonovoa.myvideogameslist.ui.adapters.CommonListAdapter
+import app.rodrigonovoa.myvideogameslist.adapters.CommonListAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject
 
@@ -22,6 +23,7 @@ class CommonListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val tvTitle = view.findViewById<TextView>(R.id.tv_common_list_title)
         val recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
 
         arguments?.getBoolean("EXTRA_GAME_LIST")?.let {
@@ -37,8 +39,10 @@ class CommonListFragment : Fragment() {
         }
 
         if(isGamesList){
+            tvTitle.text = getString(R.string.common_list_title_a)
             model.getGamesFromRepo()
         }else{
+            tvTitle.text = getString(R.string.common_list_title_b)
             model.getGamesFromLocalDb()
         }
     }

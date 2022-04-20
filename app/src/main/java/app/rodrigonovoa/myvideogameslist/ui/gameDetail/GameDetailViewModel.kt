@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -38,8 +39,16 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
     fun getGameFromLocalDb(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
            val game =  repository.getGameByIdFromDb(id)
-            Log.d("GAME_DETAIL", game.toString())
+
+            if(game != null){
+                setRetrievedGame(map(game))
+            }
         }
+    }
+
+    private fun map(game: Game):GameDetailResponse{
+        return GameDetailResponse(0, game.name, game.description, game.metacritic,
+            "21-04-2022", game.image, game.website)
     }
 
 }
