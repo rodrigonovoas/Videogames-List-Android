@@ -1,4 +1,4 @@
-package app.rodrigonovoa.myvideogameslist.network
+package app.rodrigonovoa.myvideogameslist.data.network
 
 import app.rodrigonovoa.myvideogameslist.Constants
 import retrofit2.Retrofit

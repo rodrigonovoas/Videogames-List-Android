@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
-import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.adapters.CommonListAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject

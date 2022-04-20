@@ -1,12 +1,12 @@
-package app.rodrigonovoa.myvideogameslist.network
+package app.rodrigonovoa.myvideogameslist.repository
 
-import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
-import app.rodrigonovoa.myvideogameslist.model.localdb.User
-import app.rodrigonovoa.myvideogameslist.room.GamesListDb
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GamesListResponse
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.User
+import app.rodrigonovoa.myvideogameslist.data.network.ApiService
+import app.rodrigonovoa.myvideogameslist.data.room.GamesListDb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

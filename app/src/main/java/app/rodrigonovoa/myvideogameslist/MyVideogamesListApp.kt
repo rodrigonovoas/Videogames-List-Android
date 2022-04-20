@@ -1,8 +1,8 @@
 package app.rodrigonovoa.myvideogameslist
 
 import android.app.Application
-import app.rodrigonovoa.myvideogameslist.model.localdb.User
-import app.rodrigonovoa.myvideogameslist.network.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.User
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.utils.KoinUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

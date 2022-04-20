@@ -1,4 +1,4 @@
-package app.rodrigonovoa.myvideogameslist.model.localdb
+package app.rodrigonovoa.myvideogameslist.data.model.localdb
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

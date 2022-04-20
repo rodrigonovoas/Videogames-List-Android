@@ -10,11 +10,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
-import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
-import com.bumptech.glide.Glide
-import org.koin.java.KoinJavaComponent.inject
 
 class CommonListAdapter(private val list: List<GameResponse>, private val listFromRepo: Boolean = true) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {

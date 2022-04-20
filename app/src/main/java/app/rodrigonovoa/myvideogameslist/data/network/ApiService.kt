@@ -1,9 +1,8 @@
-package app.rodrigonovoa.myvideogameslist.network
+package app.rodrigonovoa.myvideogameslist.data.network
 
 import app.rodrigonovoa.myvideogameslist.Constants.Companion.KEY_ENDPOINT
-import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GamesListResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

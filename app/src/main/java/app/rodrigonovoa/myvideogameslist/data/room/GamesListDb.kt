@@ -1,18 +1,11 @@
-package app.rodrigonovoa.myvideogameslist.room
+package app.rodrigonovoa.myvideogameslist.data.room
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
-import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
-import app.rodrigonovoa.myvideogameslist.model.localdb.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.PendingGame
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.User
 
 @Database(entities = [User::class, Game::class, GameRecord::class, PendingGame::class], version = 1)
 abstract class GamesListDb : RoomDatabase() {

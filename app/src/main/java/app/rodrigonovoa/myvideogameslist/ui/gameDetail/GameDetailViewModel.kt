@@ -4,14 +4,14 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.network.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class GameDetailViewModel(private val repository:GamesListRepository): ViewModel() {
+class GameDetailViewModel(private val repository: GamesListRepository): ViewModel() {
     val retrievedGame = MutableLiveData<GameDetailResponse?>().apply { postValue(null)}
 
     fun getGameFromRepo(id: Int){

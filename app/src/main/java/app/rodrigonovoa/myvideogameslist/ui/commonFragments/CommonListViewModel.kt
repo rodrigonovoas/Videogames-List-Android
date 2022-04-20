@@ -3,11 +3,11 @@ package app.rodrigonovoa.myvideogameslist.ui.commonFragments
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.network.GamesListRepository
-import app.rodrigonovoa.myvideogameslist.room.GameDAO
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GamesListResponse
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.data.room.GameDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.catch

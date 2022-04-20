@@ -1,4 +1,4 @@
-package app.rodrigonovoa.myvideogameslist.model.domain
+package app.rodrigonovoa.myvideogameslist.data.model.domain
 
 import java.io.Serializable
 

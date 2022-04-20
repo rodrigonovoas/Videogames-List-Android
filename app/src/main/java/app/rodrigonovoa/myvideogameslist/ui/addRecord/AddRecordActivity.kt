@@ -3,10 +3,10 @@ package app.rodrigonovoa.myvideogameslist.ui.addRecord
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityAddRecordBinding
-import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
-import app.rodrigonovoa.myvideogameslist.network.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

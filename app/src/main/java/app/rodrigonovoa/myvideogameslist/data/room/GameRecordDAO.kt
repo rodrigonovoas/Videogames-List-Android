@@ -1,10 +1,9 @@
-package app.rodrigonovoa.myvideogameslist.room
+package app.rodrigonovoa.myvideogameslist.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
 
 @Dao
 interface GameRecordDAO {
