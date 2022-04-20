@@ -5,15 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
-import app.rodrigonovoa.myvideogameslist.network.ApiRepository
-import app.rodrigonovoa.myvideogameslist.room.GameDAO
+import app.rodrigonovoa.myvideogameslist.network.GamesListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class GameDetailViewModel(private val repository:ApiRepository, private val gameDao: GameDAO): ViewModel() {
+class GameDetailViewModel(private val repository:GamesListRepository): ViewModel() {
     val retrievedGame = MutableLiveData<GameDetailResponse?>().apply { postValue(null)}
 
     fun getGameFromRepo(id: Int){
@@ -33,7 +31,7 @@ class GameDetailViewModel(private val repository:ApiRepository, private val game
 
     fun getGameFromLocalDb(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
-           val game =  gameDao.getGameById(id)
+           val game =  repository.getGameByIdFromDb(id)
             Log.d("GAME_DETAIL", game.toString())
         }
     }

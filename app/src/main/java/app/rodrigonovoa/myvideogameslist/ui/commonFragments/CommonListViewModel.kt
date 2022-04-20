@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
 import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.network.ApiRepository
+import app.rodrigonovoa.myvideogameslist.network.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.room.GameDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class CommonListViewModel(private val repository: ApiRepository, private val gamesDAO: GameDAO): ViewModel() {
+class CommonListViewModel(private val repository: GamesListRepository, private val gamesDAO: GameDAO): ViewModel() {
     val gamesList = MutableLiveData<GamesListResponse?>().apply { postValue(null)}
 
     @InternalCoroutinesApi
@@ -35,7 +35,7 @@ class CommonListViewModel(private val repository: ApiRepository, private val gam
 
     fun getGamesFromLocalDb(){
         viewModelScope.launch(Dispatchers.IO) {
-            val games = gamesDAO.getAll()
+            val games = repository.getAllGamesFromDb()
 
             if (games.size > 0) {
                 gamesList.postValue(mapGameToGamesListResponse(games))
@@ -47,8 +47,7 @@ class CommonListViewModel(private val repository: ApiRepository, private val gam
         var gameResponseDetailList: MutableList<GameResponse> = mutableListOf()
         games.forEach {
             gameResponseDetailList.add(
-                GameResponse(it.gameid!!, it.name, "",
-            it.metacritic, it.image)
+                GameResponse(it.gameid!!, it.name, "", it.metacritic, it.image)
             )
         }
 

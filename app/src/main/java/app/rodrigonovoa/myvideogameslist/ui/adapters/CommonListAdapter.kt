@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.ui.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -60,14 +61,18 @@ class CommonListAdapter(private val list: List<GameResponse>, private val listFr
         glideUtils.loadImage(imageSrc, viewHolder.imvGameImage)
 
         viewHolder.cardViewGame.setOnClickListener {
-            val intent = Intent(context,GameDetailActivity::class.java)
-            intent.putExtra("id",list[position].id)
-            intent.putExtra("fromRepo",listFromRepo)
-            context.startActivity(intent)
+            openGameDetailActivity(context, position)
         }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = list.size
+
+    private fun openGameDetailActivity(context: Context, position: Int){
+        val intent = Intent(context,GameDetailActivity::class.java)
+        intent.putExtra("id",list[position].id)
+        intent.putExtra("fromRepo",listFromRepo)
+        context.startActivity(intent)
+    }
 
 }
