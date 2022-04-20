@@ -33,8 +33,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Videogames"
-                    android:textSize="16dp"
+                    android:text="@string/menu_videogames_option"
+                    android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -54,8 +54,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="My Records"
-                    android:textSize="16dp"
+                    android:text="@string/menu_my_records_option"
+                    android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -84,8 +84,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Videogames"
-                    android:textSize="16dp"
+                    android:text="@string/menu_pending_games_option"
+                    android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -105,8 +105,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="My Records"
-                    android:textSize="16dp"
+                    android:text="@string/menu_user_configuration_option"
+                    android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"/>
             </LinearLayout>

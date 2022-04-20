@@ -48,7 +48,7 @@ class CommonListAdapter(private val list: List<GameResponse>, private val listFr
         // contents of the view with that element
         viewHolder.tvGameTitle.text = list[position].name
         viewHolder.tvGameRelaseDate.text = list[position].released
-        viewHolder.tvGameMetacritic.text = "Metacritic: " + list[position].metacritic.toString()
+        viewHolder.tvGameMetacritic.text = context.getString(R.string.common_list_metacritic) + list[position].metacritic.toString()
 
         val imageSrc = list[position].background_image
         if(imageSrc != null && !imageSrc.isEmpty()){

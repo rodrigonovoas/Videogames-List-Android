@@ -10,7 +10,7 @@
         android:id="@+id/tv_created_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Created by Rodrigo Novoa"
+        android:text="@string/splash_subtitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

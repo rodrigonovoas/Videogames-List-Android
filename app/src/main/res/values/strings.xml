@@ -1,8 +1,27 @@
 <resources>
     <string name="app_name">My Videogames List</string>
 
+    <!-- SPLASH -->
+    <string name="splash_subtitle">Created by Rodrigo Novoa</string>
+
+    <!-- Username Dialog -->
     <string name="username_dialog_title">Introduce username</string>
     <string name="username_dialog_button">Continue</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- MENU -->
+    <string name="menu_videogames_option">Videogames</string>
+    <string name="menu_my_records_option">My Records</string>
+    <string name="menu_pending_games_option">Pending Games</string>
+    <string name="menu_user_configuration_option">Options</string>
+
+    <!-- ADD RECORD -->
+    <string name="add_record_title_placeholder">Videogame Title</string>
+    <string name="add_record_subtitle">Record</string>
+
+    <!-- GAME DETAIL -->
+    <string name="game_detail_add_to_record">ADD TO RECORDS</string>
+
+    <!-- COMMON LIST -->
+    <string name="common_list_metacritic">Metacritic: </string>
+
 </resources>
