@@ -11,6 +11,7 @@ import org.koin.android.ext.android.inject
 
 class MyVideogamesListApp: Application() {
     private val userDAO: UserDAO by inject()
+    private val koinUtils: KoinUtils by inject()
 
     override fun onCreate() {
         super.onCreate()

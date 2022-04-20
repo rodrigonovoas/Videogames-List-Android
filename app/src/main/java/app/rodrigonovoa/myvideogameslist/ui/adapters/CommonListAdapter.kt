@@ -11,10 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
+import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 import com.bumptech.glide.Glide
+import org.koin.java.KoinJavaComponent.inject
 
 class CommonListAdapter(private val list: List<GameResponse>, private val listFromRepo: Boolean = true) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
+
+    private lateinit var glideUtils: GlideUtils
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardViewGame: CardView
@@ -38,6 +42,8 @@ class CommonListAdapter(private val list: List<GameResponse>, private val listFr
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_common_list, viewGroup, false)
 
+        glideUtils = GlideUtils(viewGroup.context)
+
         return ViewHolder(view)
     }
 
@@ -50,14 +56,8 @@ class CommonListAdapter(private val list: List<GameResponse>, private val listFr
         viewHolder.tvGameRelaseDate.text = list[position].released
         viewHolder.tvGameMetacritic.text = context.getString(R.string.common_list_metacritic) + list[position].metacritic.toString()
 
-        val imageSrc = list[position].background_image
-        if(imageSrc != null && !imageSrc.isEmpty()){
-            Glide.with(context)
-                .load(imageSrc)
-                .into(viewHolder.imvGameImage);
-        }else{
-            viewHolder.imvGameImage.setImageResource(R.drawable.app_icon)
-        }
+        val imageSrc = list[position].background_image ?: ""
+        glideUtils.loadImage(imageSrc, viewHolder.imvGameImage)
 
         viewHolder.cardViewGame.setOnClickListener {
             val intent = Intent(context,GameDetailActivity::class.java)
