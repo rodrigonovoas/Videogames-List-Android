@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.Toast
+import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityAddRecordBinding
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
@@ -26,8 +28,8 @@ class AddRecordActivity : AppCompatActivity() {
 
     private val model: AddRecordViewModel by viewModel()
 
-    private var fromCalendar = Calendar.getInstance()
-    private var toCalendar = Calendar.getInstance()
+    private var fromCalendar: Calendar? = null
+    private var toCalendar: Calendar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,25 +42,6 @@ class AddRecordActivity : AppCompatActivity() {
             binding.tvGameTitle.text = gameResponse!!.name
         }
 
-        // CALENDAR LISTENERS
-        val fromDateSetListener = object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
-                                   dayOfMonth: Int) {
-                fromCalendar.set(Calendar.YEAR, year)
-                fromCalendar.set(Calendar.MONTH, monthOfYear)
-                fromCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            }
-        }
-
-        val toDateSetListener = object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
-                                   dayOfMonth: Int) {
-                toCalendar.set(Calendar.YEAR, year)
-                toCalendar.set(Calendar.MONTH, monthOfYear)
-                toCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            }
-        }
-
         // OBSERVERS
         this.model.recordInserted.observe(this) { inserted ->
             if(inserted == true){
@@ -66,29 +49,84 @@ class AddRecordActivity : AppCompatActivity() {
             }
         }
 
-        // VIEW LISTENERS
-        binding.btnAddRecord.setOnClickListener {
-            model.insertRecord(gameResponse!!, fromCalendar, toCalendar,
-                binding.edtScore.text.toString().toInt(), binding.edtNotes.text.toString())
+        // CALENDAR LISTENERS
+        val fromDateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+
+                if(fromCalendar==null) fromCalendar = Calendar.getInstance()
+
+                fromCalendar?.set(Calendar.YEAR, year)
+                fromCalendar?.set(Calendar.MONTH, monthOfYear)
+                fromCalendar?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                fromCalendar?.let { setDateInEditext(it, binding.edtInitDate) }
+            }
         }
 
-        binding.edtInitDate.setOnClickListener { openDatePicker(fromDateSetListener, fromCalendar, binding.edtInitDate) }
-        binding.edtFinishDate.setOnClickListener { openDatePicker(toDateSetListener, toCalendar, binding.edtFinishDate) }
+        val toDateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                if(toCalendar==null) toCalendar = Calendar.getInstance()
+
+                toCalendar?.set(Calendar.YEAR, year)
+                toCalendar?.set(Calendar.MONTH, monthOfYear)
+                toCalendar?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                toCalendar?.let { setDateInEditext(it, binding.edtFinishDate) }
+            }
+        }
+
+        // VIEW LISTENERS
+        binding.btnAddRecord.setOnClickListener {
+            if(checkIfRecordCanBeAdded()){
+                val score =  if(binding.edtScore.text.toString() == "") "0" else binding.edtScore.text.toString()
+                val notes = binding.edtNotes.text?.toString() ?: ""
+
+                model.insertRecord(gameResponse!!, fromCalendar!!, toCalendar!!, score.toInt(), notes)
+            }
+        }
+
+        binding.edtInitDate.setOnClickListener {
+            openDatePicker(fromDateSetListener,fromCalendar)
+        }
+
+        binding.edtFinishDate.setOnClickListener {
+            openDatePicker(toDateSetListener, toCalendar)
+        }
     }
 
-    private fun openDatePicker(listener: DatePickerDialog.OnDateSetListener, cal: Calendar, edt:EditText) {
+    private fun openDatePicker(listener: DatePickerDialog.OnDateSetListener, cal: Calendar?) {
+        val calendar = cal ?: Calendar.getInstance()
+
         DatePickerDialog(this@AddRecordActivity,
             listener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)).show()
-
-        setDateInEditext(cal, edt)
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
 
     private fun setDateInEditext(cal: Calendar, edt: EditText) {
         val dateFormat = "dd/MM/yyyy"
         val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
         edt.setText(sdf.format(cal.getTime()))
+    }
+
+    private fun checkIfRecordCanBeAdded(): Boolean{
+        if(fromCalendar == null){
+            createToast(getString(R.string.add_record_from_date_error))
+            return false
+        }
+
+        if(toCalendar == null){
+            createToast(getString(R.string.add_record_to_date_error))
+            return false
+        }
+
+        return true
+    }
+
+    private fun createToast(text: String){
+        Toast.makeText(this@AddRecordActivity, text, Toast.LENGTH_SHORT).show()
     }
 }
