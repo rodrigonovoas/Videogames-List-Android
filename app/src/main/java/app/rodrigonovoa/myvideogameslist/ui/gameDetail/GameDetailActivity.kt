@@ -30,6 +30,7 @@ class GameDetailActivity : AppCompatActivity() {
         if(fromRepo){
             binding.btnAddRecord.visibility = View.VISIBLE
             model.getGameFromRepo(id.toInt())
+            model.checkIfGameRecordExists(id.toInt())
         }else{
             binding.btnAddRecord.visibility = View.GONE
             model.getGameFromLocalDb(id.toInt())
@@ -41,6 +42,13 @@ class GameDetailActivity : AppCompatActivity() {
                 if(fromRepo){
                     setAddRecordClickListener(game)
                 }
+            }
+        }
+
+        this.model.disableAddButton.observe(this) { disable ->
+            if(disable == true){
+                binding.btnAddRecord.isEnabled = false
+                binding.btnAddRecord.text = getString(R.string.common_added)
             }
         }
     }

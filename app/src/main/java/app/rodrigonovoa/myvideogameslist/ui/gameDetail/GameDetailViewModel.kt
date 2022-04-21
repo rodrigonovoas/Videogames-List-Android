@@ -17,6 +17,9 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
     private val _retrievedGame = MutableLiveData<GameDetailResponse?>().apply { postValue(null)}
     val retrievedGame: LiveData<GameDetailResponse?> get() = _retrievedGame
 
+    private val _disableAddButton = MutableLiveData<Boolean?>().apply { postValue(false)}
+    val disableAddButton: LiveData<Boolean?> get() = _disableAddButton
+
     fun setRetrievedGame(game: GameDetailResponse){
         _retrievedGame.postValue(game)
     }
@@ -33,6 +36,16 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
                         setRetrievedGame(game)
                     }
                 }
+        }
+    }
+
+    fun checkIfGameRecordExists(gameId: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val list =  repository.getGameRecordsByGameId(gameId)
+
+            if(list.size > 0){
+                _disableAddButton.postValue(true)
+            }
         }
     }
 

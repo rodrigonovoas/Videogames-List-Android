@@ -10,6 +10,9 @@ interface GameRecordDAO {
     @Query("SELECT * from GameRecord")
     fun getAll(): List<GameRecord>
 
+    @Query("SELECT * from GameRecord where gameid = :id")
+    fun getRecordByGameId(id:Int): List<GameRecord>
+
     @Insert
     fun insert(gameRecord: GameRecord): Long
 }

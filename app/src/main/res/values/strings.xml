@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">My Videogames List</string>
+    <!-- COMMON -->
+    <string name="common_added">ADDED</string>
 
     <!-- SPLASH -->
     <string name="splash_subtitle">Created by Rodrigo Novoa</string>

@@ -40,11 +40,7 @@ class AddRecordActivity : AppCompatActivity() {
             binding.tvGameTitle.text = gameResponse!!.name
         }
 
-        binding.btnAddRecord.setOnClickListener {
-            model.insertRecord(gameResponse!!, fromCalendar, toCalendar,
-                binding.edtScore.text.toString().toInt(), binding.edtNotes.text.toString())
-        }
-
+        // CALENDAR LISTENERS
         val fromDateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
                                    dayOfMonth: Int) {
@@ -61,6 +57,19 @@ class AddRecordActivity : AppCompatActivity() {
                 toCalendar.set(Calendar.MONTH, monthOfYear)
                 toCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }
+        }
+
+        // OBSERVERS
+        this.model.recordInserted.observe(this) { inserted ->
+            if(inserted == true){
+                finish()
+            }
+        }
+
+        // VIEW LISTENERS
+        binding.btnAddRecord.setOnClickListener {
+            model.insertRecord(gameResponse!!, fromCalendar, toCalendar,
+                binding.edtScore.text.toString().toInt(), binding.edtNotes.text.toString())
         }
 
         binding.edtInitDate.setOnClickListener { openDatePicker(fromDateSetListener, fromCalendar, binding.edtInitDate) }
