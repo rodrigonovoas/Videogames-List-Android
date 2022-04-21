@@ -1,22 +1,33 @@
 package app.rodrigonovoa.myvideogameslist.ui.addRecord
 
+import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.DatePicker
+import android.widget.EditText
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityAddRecordBinding
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.utils.DateUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddRecordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddRecordBinding
     private var gameResponse: GameDetailResponse? = null
 
-    private val repository: GamesListRepository by inject()
+    private val model: AddRecordViewModel by viewModel()
+
+    private var fromCalendar = Calendar.getInstance()
+    private var toCalendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +41,45 @@ class AddRecordActivity : AppCompatActivity() {
         }
 
         binding.btnAddRecord.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val game = Game(null, gameResponse!!.name, gameResponse!!.description, 1000, gameResponse!!.metacritic, gameResponse!!.website, gameResponse!!.background_image_additional)
-                val insertedGameId = repository.insertGame(game)
+            model.insertRecord(gameResponse!!, fromCalendar, toCalendar,
+                binding.edtScore.text.toString().toInt(), binding.edtNotes.text.toString())
+        }
 
-                val gameRecord = GameRecord(null, insertedGameId.toInt(), 1,1000,2000,binding.edtScore.text.toString().toInt(), binding.edtNotes.text.toString())
-                val insertedRecordId = repository.insertGameRecord(gameRecord)
-
-                if(insertedRecordId > 0){
-                    runOnUiThread {
-                        finish()
-                    }
-                }
+        val fromDateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                fromCalendar.set(Calendar.YEAR, year)
+                fromCalendar.set(Calendar.MONTH, monthOfYear)
+                fromCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }
         }
+
+        val toDateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                toCalendar.set(Calendar.YEAR, year)
+                toCalendar.set(Calendar.MONTH, monthOfYear)
+                toCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            }
+        }
+
+        binding.edtInitDate.setOnClickListener { openDatePicker(fromDateSetListener, fromCalendar, binding.edtInitDate) }
+        binding.edtFinishDate.setOnClickListener { openDatePicker(toDateSetListener, toCalendar, binding.edtFinishDate) }
+    }
+
+    private fun openDatePicker(listener: DatePickerDialog.OnDateSetListener, cal: Calendar, edt:EditText) {
+        DatePickerDialog(this@AddRecordActivity,
+            listener,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)).show()
+
+        setDateInEditext(cal, edt)
+    }
+
+    private fun setDateInEditext(cal: Calendar, edt: EditText) {
+        val dateFormat = "dd/MM/yyyy"
+        val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
+        edt.setText(sdf.format(cal.getTime()))
     }
 }

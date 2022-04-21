@@ -10,10 +10,11 @@
         android:id="@+id/tv_game_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="44dp"
         android:text="@string/add_record_title_placeholder"
+        android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,12 +22,23 @@
         android:id="@+id/tv_record_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:text="@string/add_record_subtitle"
+        android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_game_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From"
+        app:layout_constraintBottom_toTopOf="@+id/edt_init_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_record_title" />
 
     <EditText
         android:id="@+id/edt_init_date"
@@ -35,9 +47,22 @@
         android:layout_marginTop="64dp"
         android:ems="10"
         android:inputType="date"
+        android:focusable="false"
+        android:clickable="true"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_record_title" />
+
+    <TextView
+        android:text="To"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_init_date"
+        app:layout_constraintBottom_toTopOf="@+id/edt_finish_date"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
         android:id="@+id/edt_finish_date"
@@ -46,21 +71,45 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="date"
+        android:focusable="false"
+        android:clickable="true"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_init_date" />
 
+    <TextView
+        android:text="Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_finish_date"
+        app:layout_constraintBottom_toTopOf="@+id/edt_score"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <EditText
         android:id="@+id/edt_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_finish_date" />
+
+    <TextView
+        android:text="Notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_score"
+        app:layout_constraintBottom_toTopOf="@+id/edt_notes"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
         android:id="@+id/edt_notes"
@@ -79,10 +128,22 @@
         android:id="@+id/btn_add_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD RECORD"
+        android:text="ADD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_notes" />
+
+
+    <DatePicker
+        android:id="@+id/date_Picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode = "spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
