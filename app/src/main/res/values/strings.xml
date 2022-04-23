@@ -24,6 +24,15 @@
 
     <!-- GAME DETAIL -->
     <string name="game_detail_add_to_record">ADD TO RECORDS</string>
+    <string name="game_detail_game_title">GAME &#127918;</string>
+    <string name="game_detail_info_title">INFO &#8505;</string>
+    <string name="game_detail_description_title">DESCRIPTION &#128214;</string>
+    <string name="game_detail_extra_title">EXTRA &#128009;</string>
+
+    <string name="game_detail_info_release">Release Date: </string>
+    <string name="game_detail_info_platforms">Platforms: </string>
+    <string name="game_detail_info_publishers">Publisher/s: </string>
+    <string name="game_detail_info_rate">ESRB Rating: </string>
 
     <!-- COMMON LIST -->
     <string name="common_list_title_a">Games &#127918;</string>

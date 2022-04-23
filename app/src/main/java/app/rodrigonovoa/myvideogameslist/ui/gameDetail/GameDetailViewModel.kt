@@ -28,6 +28,7 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
         viewModelScope.launch {
             repository.getGameById(id)
                 .catch {
+                    Log.d("gamedetail", it.message.toString())
                     // error handling
                 }
                 .collect {
@@ -61,7 +62,7 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
 
     private fun map(game: Game):GameDetailResponse{
         return GameDetailResponse(0, game.name, game.description, game.metacritic,
-            "21-04-2022", game.image, game.website)
+            "21-04-2022", game.image, game.website, null, null, null)
     }
 
 }

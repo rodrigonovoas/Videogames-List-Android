@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityGameDetailBinding
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.addRecord.AddRecordActivity
 import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
@@ -58,12 +61,56 @@ class GameDetailActivity : AppCompatActivity() {
         binding.tvGameDescription.text = Html.fromHtml(game.description)
 
         val imageSrc = game.background_image_additional
-        if(imageSrc != null && !imageSrc.isEmpty()){
+        setImageOnLayout(binding.imvGameImage, imageSrc)
+        setInfoOnLayout(game, binding.tvGameInfoContent)
+        setExtraOnLayout(game, binding.tvGameExtraContent)
+    }
+
+    private fun setInfoOnLayout(game: GameDetailResponse, tv_info: TextView){
+        var content: String = ""
+
+        content = getString(R.string.game_detail_info_release) + game.released
+
+        if(game.publishers != null){
+            content += "\n" + getString(R.string.game_detail_info_publishers)
+            game.publishers.forEach {
+                content += it.name + ","
+            }
+
+            content = content.dropLast(1)
+        }
+
+        if (game.platforms != null) {
+            content += "\n" + getString(R.string.game_detail_info_platforms)
+            game.platforms.forEach {
+                if (it.platform != null) {
+                    content += it.platform.name + ","
+                }
+            }
+            content = content.dropLast(1)
+        }
+
+        if(game.esrb_rating != null) content += "\n" + getString(R.string.game_detail_info_rate) + game.esrb_rating.name
+
+        tv_info.setText(content)
+    }
+
+    private fun setExtraOnLayout(game: GameDetailResponse, tv_extra: TextView){
+        var content = ""
+
+        content += getString(R.string.common_list_metacritic) + " " + game.metacritic
+        content += "\n" + game.website
+
+        tv_extra.setText(content)
+    }
+
+    private fun setImageOnLayout(imv: ImageView, src: String){
+        if(src != null && !src.isEmpty()){
             Glide.with(this)
-                .load(imageSrc)
-                .into(binding.imvGameImage);
+                .load(src)
+                .into(imv);
         }else{
-            binding.imvGameImage.setImageResource(R.drawable.image_placeholder)
+            imv.setImageResource(R.drawable.image_placeholder)
         }
     }
 
