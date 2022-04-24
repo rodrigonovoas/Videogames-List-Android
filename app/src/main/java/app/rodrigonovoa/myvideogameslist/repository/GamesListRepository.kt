@@ -32,6 +32,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         localDb.userDao().insert(user)
     }
 
+    suspend fun getUser(): User{
+        return localDb.userDao().getFirstUSer()
+    }
+
     suspend fun getAllGamesFromDb(): List<Game>{
         return localDb.gameDao().getAll()
     }

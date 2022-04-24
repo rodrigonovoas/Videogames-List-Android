@@ -8,11 +8,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.animation.AnimationUtils
 import app.rodrigonovoa.myvideogameslist.R
+import app.rodrigonovoa.myvideogameslist.data.model.localdb.User
 import app.rodrigonovoa.myvideogameslist.databinding.ActivitySplashBinding
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.ui.menu.MenuActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.airbnb.lottie.LottieAnimationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Splash Activity to show information about the project,
@@ -21,6 +28,7 @@ import com.airbnb.lottie.LottieAnimationView
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+    private val model: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +37,15 @@ class SplashActivity : AppCompatActivity() {
 
         val context = this@SplashActivity
         startAnimation(context)
+
+        model.getUser()
     }
 
     private fun createUserDialog(context: Context){
         MaterialDialog(context).show {
             title(R.string.username_dialog_title)
             input(allowEmpty = false) { dialog, text ->
-                // TODO: store username
-
-                // store and move to the main activity
+                model.insertUser(text.toString())
                 openMainMenu(this@SplashActivity)
             }
             positiveButton(R.string.username_dialog_button)
@@ -69,9 +77,11 @@ class SplashActivity : AppCompatActivity() {
                     binding.lottieSplashAnim.playAnimation()
                     cont++
                 }else if (cont == 2){
-                    // TODO: if username is not stored, ask for it
-                    // createUserDialog(context)
-                    openMainMenu(context)
+                    if(model.appUser.value == null){
+                        createUserDialog(context)
+                    }else{
+                        openMainMenu(this@SplashActivity)
+                    }
                 }
             }
         })

@@ -10,17 +10,10 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MyVideogamesListApp: Application() {
-    private val repository: GamesListRepository by inject()
-    private val koinUtils: KoinUtils by inject()
-
     override fun onCreate() {
         super.onCreate()
 
         val koinUtils = KoinUtils(this@MyVideogamesListApp)
         koinUtils.setUpKoin()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.insertUserIntoDb(User(null, "Rodrigod"))
-        }
     }
 }

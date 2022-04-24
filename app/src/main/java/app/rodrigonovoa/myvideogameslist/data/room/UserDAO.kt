@@ -10,6 +10,9 @@ interface UserDAO {
     @Query("SELECT * from User")
     fun getAll(): List<User>
 
+    @Query("SELECT * from User where userid = 1")
+    fun getFirstUSer(): User
+
     @Insert
     fun insert(user: User)
 }

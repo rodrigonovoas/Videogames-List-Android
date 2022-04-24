@@ -7,6 +7,5 @@ import org.koin.dsl.module
 
 val utilsModules = module {
     single { GlideUtils(get()) }
-    single { KoinUtils(get()) }
     single { DateFormatterUtil() }
 }
