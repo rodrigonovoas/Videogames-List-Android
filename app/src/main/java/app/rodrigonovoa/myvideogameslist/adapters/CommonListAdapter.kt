@@ -15,6 +15,7 @@ import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GenreDetailResponse
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
+import app.rodrigonovoa.myvideogameslist.ui.recordDetail.RecordDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 
 class CommonListAdapter(

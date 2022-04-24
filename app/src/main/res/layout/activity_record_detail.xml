@@ -21,39 +21,42 @@
             android:id="@+id/tv_game_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
             android:text=""
             android:textAlignment="center"
             android:textSize="32dp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/black" />
+            android:textStyle="bold"
+            android:paddingBottom="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D6EFF2"
+                android:paddingLeft="5dp"
+                android:text="Complete Dates"
+                android:textStyle="bold"
+                android:textSize="24dp"/>
 
             <TextView
                 android:id="@+id/tv_from_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
                 android:text="From"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_from_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:paddingLeft="15dp"
                 android:layout_marginTop="2dp"
                 android:text="" />
 
@@ -62,6 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:text="To" />
 
@@ -70,13 +75,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:paddingLeft="15dp"
+                android:textSize="18dp"
                 android:text="" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D6EFF2"
+                android:text="Score"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                />
 
             <TextView
                 android:id="@+id/tv_score_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:text="My Score" />
 
@@ -85,7 +105,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:textSize="18dp"
+                android:paddingLeft="15dp"
                 android:text="" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D6EFF2"
+                android:text="Extra"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"/>
 
             <TextView
                 android:id="@+id/tv_notes_title"
@@ -93,6 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
+                android:textSize="18dp"
+                android:paddingLeft="15dp"
                 android:text="Notes" />
 
             <TextView
@@ -100,6 +134,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:textSize="18dp"
+                android:paddingLeft="15dp"
                 android:text="" />
         </LinearLayout>
     </LinearLayout>

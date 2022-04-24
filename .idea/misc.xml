@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/activity_add_record.xml" value="0.264" />
+        <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/activity_game_detail.xml" value="0.1640625" />
         <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/activity_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/activity_record_detail.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/fragment_common_list.xml" value="0.1640625" />
         <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/fragment_games_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/fragment_my_list.xml" value="0.4" />
         <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/fragment_pending_games.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuluk/Documents/GitHub/MyVideogamesList/app/src/main/res/layout/item_common_list.xml" value="0.1640625" />
       </map>
     </option>
   </component>
