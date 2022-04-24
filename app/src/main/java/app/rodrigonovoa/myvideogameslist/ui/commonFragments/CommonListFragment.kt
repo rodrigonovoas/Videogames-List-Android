@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
-import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.adapters.CommonListAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject
@@ -31,7 +31,7 @@ class CommonListFragment : Fragment() {
         }
 
         this.model.gamesList.observe(viewLifecycleOwner) { gameList ->
-            val games: List<GameResponse> = gameList?.results ?: listOf()
+            val games: List<GameListItemResponse> = gameList?.results ?: listOf()
             if(games.size > 0){
                 recycler.layoutManager = LinearLayoutManager(context)
                 recycler.adapter = CommonListAdapter(games, isGamesList)

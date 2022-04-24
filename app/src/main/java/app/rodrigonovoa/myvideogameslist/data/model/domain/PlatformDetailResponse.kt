@@ -2,4 +2,5 @@ package app.rodrigonovoa.myvideogameslist.data.model.domain
 
 import java.io.Serializable
 
-data class PlatformResponse(val platform: PlatformDetailResponse?): Serializable
+data class PlatformDetailResponse(val id:Int, val name: String): Serializable {
+}

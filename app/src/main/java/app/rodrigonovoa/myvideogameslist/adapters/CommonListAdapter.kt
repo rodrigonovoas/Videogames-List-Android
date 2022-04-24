@@ -10,12 +10,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
-import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
-import app.rodrigonovoa.myvideogameslist.data.model.domain.GenreResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GenreDetailResponse
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 
-class CommonListAdapter(private val list: List<GameResponse>, private val listFromRepo: Boolean = true) :
+class CommonListAdapter(private val list: List<GameListItemResponse>, private val listFromRepo: Boolean = true) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
 
     private lateinit var glideUtils: GlideUtils
@@ -90,7 +90,7 @@ class CommonListAdapter(private val list: List<GameResponse>, private val listFr
         context.startActivity(intent)
     }
 
-    private fun setPlatforms(game: GameResponse, tvPlatforms: TextView){
+    private fun setPlatforms(game: GameListItemResponse, tvPlatforms: TextView){
         val platforms = game.platforms ?: listOf()
 
         platforms.forEach {
@@ -104,7 +104,7 @@ class CommonListAdapter(private val list: List<GameResponse>, private val listFr
         }
     }
 
-    private fun setGenres(genres: List<GenreResponse>?, tvGenres: TextView){
+    private fun setGenres(genres: List<GenreDetailResponse>?, tvGenres: TextView){
         if(genres != null){
             var cont = 0
             genres.forEach {

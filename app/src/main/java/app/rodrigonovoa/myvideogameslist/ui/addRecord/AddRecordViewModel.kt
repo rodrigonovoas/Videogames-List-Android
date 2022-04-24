@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.rodrigonovoa.myvideogameslist.data.model.domain.EsrbRatingDetailResponse
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.PlatformResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.PublisherDetailResponse
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
@@ -27,6 +30,9 @@ class AddRecordViewModel(private val repository: GamesListRepository, private va
                 dateUtils.fromDateStringToTimeStamp(
                     gameDetailResponse.released
                 ),
+                getPublishersAsString(gameDetailResponse.publishers),
+                getPlatformsAsString(gameDetailResponse.platforms),
+                getEsrbRatingAsString(gameDetailResponse.esrb_rating),
                 gameDetailResponse.metacritic,
                 gameDetailResponse.website,
                 gameDetailResponse.background_image_additional
@@ -50,6 +56,52 @@ class AddRecordViewModel(private val repository: GamesListRepository, private va
                 _recordInserted.postValue(true)
             }
         }
+    }
+
+    private fun getEsrbRatingAsString(rating: EsrbRatingDetailResponse?): String {
+        if(rating != null){
+            return rating.name
+        }else{
+            return ""
+        }
+    }
+
+    private fun getPlatformsAsString(platforms: List<PlatformResponse>?): String{
+        var platformsAsString: String = ""
+
+        if(platforms != null){
+            platforms.forEach {
+                if(it != null){
+                    if(it.platform != null){
+                        if(platformsAsString.isEmpty()){
+                            platformsAsString += it.platform.name
+                        }else{
+                            platformsAsString += ", " + it.platform.name
+                        }
+                    }
+                }
+            }
+        }
+
+        return platformsAsString
+    }
+
+    private fun getPublishersAsString(publishers: List<PublisherDetailResponse>?): String {
+        var publishersAsString: String = ""
+
+        if(publishers != null){
+            publishers.forEach {
+                if(it != null){
+                    if(publishersAsString.isEmpty()){
+                        publishersAsString += it.name
+                    }else{
+                        publishersAsString += ", " + it.name
+                    }
+                }
+            }
+        }
+
+        return publishersAsString
     }
 
 }

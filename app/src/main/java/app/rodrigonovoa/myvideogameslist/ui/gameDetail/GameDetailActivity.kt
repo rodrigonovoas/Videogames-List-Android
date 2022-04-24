@@ -10,7 +10,6 @@ import android.widget.TextView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityGameDetailBinding
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
 import app.rodrigonovoa.myvideogameslist.ui.addRecord.AddRecordActivity
 import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject

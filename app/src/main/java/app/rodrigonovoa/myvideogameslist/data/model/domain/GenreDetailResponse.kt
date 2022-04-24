@@ -1,5 +1,4 @@
 package app.rodrigonovoa.myvideogameslist.data.model.domain
 
-
-data class EsrbRating(val name: String) {
+data class GenreDetailResponse(val name: String) {
 }

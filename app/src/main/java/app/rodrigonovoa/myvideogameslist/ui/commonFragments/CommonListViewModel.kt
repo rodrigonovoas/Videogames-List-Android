@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.rodrigonovoa.myvideogameslist.data.model.domain.GameResponse
+import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GamesListResponse
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
@@ -52,11 +52,11 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
     }
 
     private fun mapGameToGamesListResponse(games:List<Game>): GamesListResponse{
-        var gameResponseDetailList: MutableList<GameResponse> = mutableListOf()
+        var gameResponseDetailList: MutableList<GameListItemResponse> = mutableListOf()
 
         games.forEach {
             gameResponseDetailList.add(
-                GameResponse(it.gameid!!, it.name, "21-04-2022", it.metacritic, listOf(), listOf(), it.image)
+                GameListItemResponse(it.gameid!!, it.name, "21-04-2022", it.metacritic, listOf(), listOf(), it.image)
             )
         }
 
