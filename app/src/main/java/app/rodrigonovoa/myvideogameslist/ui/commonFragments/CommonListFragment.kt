@@ -34,7 +34,7 @@ class CommonListFragment : Fragment() {
             val games: List<GameListItemResponse> = gameList?.results ?: listOf()
             if(games.size > 0){
                 recycler.layoutManager = LinearLayoutManager(context)
-                recycler.adapter = CommonListAdapter(games, isGamesList)
+                recycler.adapter = CommonListAdapter(games, isGamesList, model.getGameCompleteDates())
             }
         }
 
@@ -56,7 +56,6 @@ class CommonListFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance(gameList: Boolean) = CommonListFragment().apply {
             arguments = Bundle().apply {

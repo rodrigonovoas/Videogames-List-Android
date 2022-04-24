@@ -11,12 +11,12 @@ import app.rodrigonovoa.myvideogameslist.data.model.domain.PublisherDetailRespon
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.GameRecord
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
-import app.rodrigonovoa.myvideogameslist.utils.DateUtils
+import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class AddRecordViewModel(private val repository: GamesListRepository, private val dateUtils: DateUtils): ViewModel() {
+class AddRecordViewModel(private val repository: GamesListRepository, private val dateFormatterUtil: DateFormatterUtil): ViewModel() {
     private val _recordInserted = MutableLiveData<Boolean?>().apply { postValue(false)}
     val recordInserted: LiveData<Boolean?> get() = _recordInserted
 
@@ -27,7 +27,7 @@ class AddRecordViewModel(private val repository: GamesListRepository, private va
                 gameDetailResponse.id,
                 gameDetailResponse.name,
                 gameDetailResponse.description,
-                dateUtils.fromDateStringToTimeStamp(
+                dateFormatterUtil.fromDateStringToTimeStamp(
                     gameDetailResponse.released
                 ),
                 getPublishersAsString(gameDetailResponse.publishers),

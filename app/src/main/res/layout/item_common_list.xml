@@ -72,11 +72,13 @@
                     android:layout_marginTop="5dp"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_game_metacritic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp">
+
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -89,7 +91,7 @@
                         android:textSize="14dp"
                         android:layout_marginLeft="10dp"
                         android:textStyle="bold"
-                        android:text="asdfa"/>
+                        android:text=""/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

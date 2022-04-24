@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
@@ -15,7 +17,10 @@ import app.rodrigonovoa.myvideogameslist.data.model.domain.GenreDetailResponse
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 
-class CommonListAdapter(private val list: List<GameListItemResponse>, private val listFromRepo: Boolean = true) :
+class CommonListAdapter(
+    private val list: List<GameListItemResponse>, private val listFromRepo: Boolean = true,
+    private val completedDates: List<String>? = null
+) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
 
     private lateinit var glideUtils: GlideUtils
@@ -28,6 +33,7 @@ class CommonListAdapter(private val list: List<GameListItemResponse>, private va
         val tvGameGenres: TextView
         val tvGamePlatforms: TextView
         val imvGameImage: ImageView
+        val llGameMetacritic: LinearLayout
 
         init {
             tvGameTitle = view.findViewById(R.id.tv_game_title)
@@ -36,6 +42,7 @@ class CommonListAdapter(private val list: List<GameListItemResponse>, private va
             tvGameGenres = view.findViewById(R.id.tv_game_genres)
             tvGamePlatforms = view.findViewById(R.id.tv_game_platforms)
             imvGameImage = view.findViewById(R.id.imv_game)
+            llGameMetacritic = view.findViewById(R.id.ll_game_metacritic)
             cardViewGame = view.findViewById(R.id.card_view_game)
         }
     }
@@ -58,19 +65,32 @@ class CommonListAdapter(private val list: List<GameListItemResponse>, private va
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.tvGameTitle.text = game.name
-        viewHolder.tvGameRelaseDate.text = game.released
-        viewHolder.tvGameMetacritic.text = game.metacritic.toString()
 
-        val platforms = game.platforms ?: listOf()
+        if(listFromRepo){
+            viewHolder.tvGameRelaseDate.text = game.released
+            viewHolder.tvGameMetacritic.text = game.metacritic.toString()
 
-        if (platforms.size == 0) {
-            viewHolder.tvGamePlatforms.visibility = View.GONE
+            val platforms = game.platforms ?: listOf()
+
+            if (platforms.size == 0) {
+                viewHolder.tvGamePlatforms.visibility = View.GONE
+            }else{
+                setPlatforms(game, viewHolder.tvGamePlatforms)
+            }
+
+            val genres = game.genres
+            setGenres(genres, viewHolder.tvGameGenres)
         }else{
-            setPlatforms(game, viewHolder.tvGamePlatforms)
+            if(completedDates != null){
+                viewHolder.tvGameRelaseDate.text =
+                    viewHolder.tvGameRelaseDate.context.getString(R.string.common_list_complete_date) + " " + completedDates[position]
+            }else{
+                viewHolder.tvGameRelaseDate.visibility = View.GONE
+            }
+            viewHolder.llGameMetacritic.visibility = View.GONE
+            viewHolder.tvGamePlatforms.visibility = View.GONE
+            viewHolder.tvGameGenres.visibility = View.GONE
         }
-
-        val genres = game.genres
-        setGenres(genres, viewHolder.tvGameGenres)
 
         val imageSrc = game.background_image ?: ""
         glideUtils.loadImage(imageSrc, viewHolder.imvGameImage)

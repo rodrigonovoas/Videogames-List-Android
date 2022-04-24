@@ -3,7 +3,7 @@ package app.rodrigonovoa.myvideogameslist.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateUtils {
+class DateFormatterUtil {
     fun fromDateStringToTimeStamp(date:String):Long{
         val formatedDate = SimpleDateFormat("yyyy-MM-dd").parse(date)
         return formatedDate.time

@@ -9,19 +9,35 @@ import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GamesListResponse
 import app.rodrigonovoa.myvideogameslist.data.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
-import app.rodrigonovoa.myvideogameslist.data.room.GameDAO
+import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class CommonListViewModel(private val repository: GamesListRepository, private val gamesDAO: GameDAO): ViewModel() {
+class CommonListViewModel(private val repository: GamesListRepository, private val dateFormatterUtil: DateFormatterUtil): ViewModel() {
+    private var _gameCompleteDates: List<String>? = null
     private val _gamesList = MutableLiveData<GamesListResponse>().apply { postValue(null)}
     val gamesList: LiveData<GamesListResponse> get() = _gamesList
 
     fun setGameList(list: GamesListResponse){
         _gamesList.postValue(list)
+    }
+
+    // TODO: this is the release date, not the complete date; retrieve from GameRecord
+    private fun setGameCompleteDates(games:List<Game>){
+        val datesList = mutableListOf<String>()
+
+        games.forEach {
+            datesList.add(dateFormatterUtil.fromTimeStampToDateString(it.released))
+        }
+
+        _gameCompleteDates = datesList.toList()
+    }
+
+    fun getGameCompleteDates(): List<String>?{
+        return _gameCompleteDates
     }
 
     @InternalCoroutinesApi
@@ -56,9 +72,11 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
 
         games.forEach {
             gameResponseDetailList.add(
-                GameListItemResponse(it.gameid!!, it.name, "21-04-2022", it.metacritic, listOf(), listOf(), it.image)
+                GameListItemResponse(it.gameid!!, it.name, dateFormatterUtil.fromTimeStampToDateString(it.released), it.metacritic, listOf(), listOf(), it.image)
             )
         }
+
+        setGameCompleteDates(games)
 
         return GamesListResponse(games.size, "", "", gameResponseDetailList.toList())
     }
