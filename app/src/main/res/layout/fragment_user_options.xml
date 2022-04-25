@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.userOptions.UserOptionsFragment"
+    tools:context=".view.ui.userOptions.UserOptionsFragment"
     android:background="@color/color_complement_2">
 
     <TextView
@@ -38,6 +38,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@id/guideline"
@@ -83,8 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20dp"
+        android:autoLink="web"
         app:layout_constraintHorizontal_bias="0.038"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_github_repo" />
 
     <androidx.constraintlayout.widget.Guideline

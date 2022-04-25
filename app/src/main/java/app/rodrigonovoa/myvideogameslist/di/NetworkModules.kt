@@ -1,8 +1,8 @@
 package app.rodrigonovoa.myvideogameslist.di
 
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
-import app.rodrigonovoa.myvideogameslist.data.network.ApiService
-import app.rodrigonovoa.myvideogameslist.data.network.RetrofitClient
+import app.rodrigonovoa.myvideogameslist.network.ApiService
+import app.rodrigonovoa.myvideogameslist.network.RetrofitClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

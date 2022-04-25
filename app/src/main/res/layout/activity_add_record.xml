@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".ui.addRecord.AddRecordActivity">
+    tools:context=".view.ui.addRecord.AddRecordActivity">
 
     <TextView
         android:id="@+id/tv_game_title"

@@ -2,10 +2,10 @@ package app.rodrigonovoa.myvideogameslist.di
 
 import android.app.Application
 import androidx.room.Room
-import app.rodrigonovoa.myvideogameslist.data.room.GameDAO
-import app.rodrigonovoa.myvideogameslist.data.room.GameRecordDAO
-import app.rodrigonovoa.myvideogameslist.data.room.GamesListDb
-import app.rodrigonovoa.myvideogameslist.data.room.UserDAO
+import app.rodrigonovoa.myvideogameslist.persistance.room.GameDAO
+import app.rodrigonovoa.myvideogameslist.persistance.room.GameRecordDAO
+import app.rodrigonovoa.myvideogameslist.persistance.room.GamesListDb
+import app.rodrigonovoa.myvideogameslist.persistance.room.UserDAO
 import org.koin.dsl.module
 
 val roomModules = module {
