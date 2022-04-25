@@ -31,6 +31,11 @@ class UserOptionsFragment : Fragment() {
 
         binding.edtUsernameContent.setText(prefs.username)
         binding.tvGithubRepoContent.text = Constants.GITHUB_REPO
+        binding.swSkipSplash.isChecked = prefs.skip_splash
+
+        binding.swSkipSplash.setOnCheckedChangeListener { _, isChecked ->
+            prefs.skip_splash = isChecked
+        }
     }
 
     override fun onDestroyView() {

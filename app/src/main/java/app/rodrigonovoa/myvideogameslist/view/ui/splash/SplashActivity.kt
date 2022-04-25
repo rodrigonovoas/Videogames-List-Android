@@ -30,9 +30,14 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val context = this@SplashActivity
-        startAnimation(context)
 
         model.getUser()
+
+        if(prefs.skip_splash){
+            openMainMenu(context)
+        }else{
+            startAnimation(context)
+        }
     }
 
     private fun createUserDialog(context: Context){

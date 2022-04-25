@@ -15,7 +15,7 @@ class SplashViewModel(private val repository: GamesListRepository): ViewModel() 
 
     fun insertUser(name: String){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertUserIntoDb(User(null, "Rodrigod"))
+            repository.insertUserIntoDb(User(null, name))
         }
     }
 
