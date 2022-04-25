@@ -11,12 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.adapters.CommonListAdapter
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject
 
 class CommonListFragment : Fragment() {
 
     private val model: CommonListViewModel by inject()
+    private val repository: GamesListRepository by inject()
+    private val glideUtils: GlideUtils by inject()
     private var isGamesList = true
 
     @OptIn(InternalCoroutinesApi::class)
@@ -34,7 +38,7 @@ class CommonListFragment : Fragment() {
             val games: List<GameListItemResponse> = gameList?.results ?: listOf()
             if(games.size > 0){
                 recycler.layoutManager = LinearLayoutManager(context)
-                recycler.adapter = CommonListAdapter(games, isGamesList, model.getGameCompleteDates())
+                recycler.adapter = CommonListAdapter(games, isGamesList, model.getGameCompleteDates(), repository, glideUtils)
             }
         }
 

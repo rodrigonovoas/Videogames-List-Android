@@ -19,11 +19,11 @@ class RecordDetailViewModel(private val repository: GamesListRepository): ViewMo
 
     fun getRecordFromLocalDb(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
-            val record =  repository.getGameRecordsById(id)
+            val record =  repository.getGameRecordsByGameId(id)
 
             if(record != null){
-                getGameDetail(record.gameid)
-                _retrievedRecord.postValue(record)
+                getGameDetail(id)
+                _retrievedRecord.postValue(record[0])
             }
         }
     }

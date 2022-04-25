@@ -14,17 +14,19 @@ import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.data.model.domain.GenreDetailResponse
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.ui.recordDetail.RecordDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
+import com.afollestad.materialdialogs.MaterialDialog
 
 class CommonListAdapter(
     private val list: List<GameListItemResponse>, private val listFromRepo: Boolean = true,
-    private val completedDates: List<String>? = null
+    private val completedDates: List<String>? = null,
+    private val repository: GamesListRepository,
+    private val glideUtils: GlideUtils
 ) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
-
-    private lateinit var glideUtils: GlideUtils
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardViewGame: CardView
@@ -53,8 +55,6 @@ class CommonListAdapter(
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_common_list, viewGroup, false)
-
-        glideUtils = GlideUtils(viewGroup.context)
 
         return ViewHolder(view)
     }
@@ -97,7 +97,11 @@ class CommonListAdapter(
         glideUtils.loadImage(imageSrc, viewHolder.imvGameImage)
 
         viewHolder.cardViewGame.setOnClickListener {
-            openGameDetailActivity(context, position)
+            if(listFromRepo){
+                openGameDetailActivity(context, position)
+            }else {
+                openRecordAndGameDetailDialog(context, position)
+            }
         }
     }
 
@@ -108,6 +112,12 @@ class CommonListAdapter(
         val intent = Intent(context,GameDetailActivity::class.java)
         intent.putExtra("id",list[position].id)
         intent.putExtra("fromRepo",listFromRepo)
+        context.startActivity(intent)
+    }
+
+    private fun openRecordActivity(context: Context, position: Int){
+        val intent = Intent(context,RecordDetailActivity::class.java)
+        intent.putExtra("id",list[position].id)
         context.startActivity(intent)
     }
 
@@ -140,4 +150,15 @@ class CommonListAdapter(
         }
     }
 
+    private fun openRecordAndGameDetailDialog(context: Context, position: Int){
+        MaterialDialog(context).show {
+            title(R.string.common_list_dialog_title)
+            positiveButton(R.string.common_list_dialog_option_2){
+                openRecordActivity(context, position)
+            }
+            negativeButton(R.string.common_list_dialog_option_1){
+                openGameDetailActivity(context, position)
+            }
+        }
+    }
 }
