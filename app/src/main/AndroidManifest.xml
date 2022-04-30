@@ -13,16 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyVideogamesList">
         <activity
-            android:name="app.rodrigonovoa.myvideogameslist.view.ui.recordDetail.RecordDetailActivity"
+            android:name=".view.ui.addPendingGame.AddPendingGameActivity"
             android:exported="false" />
         <activity
-            android:name="app.rodrigonovoa.myvideogameslist.view.ui.addRecord.AddRecordActivity"
+            android:name=".view.ui.recordDetail.RecordDetailActivity"
             android:exported="false" />
         <activity
-            android:name="app.rodrigonovoa.myvideogameslist.view.ui.gameDetail.GameDetailActivity"
+            android:name=".view.ui.addRecord.AddRecordActivity"
             android:exported="false" />
         <activity
-            android:name="app.rodrigonovoa.myvideogameslist.view.ui.splash.SplashActivity"
+            android:name=".view.ui.gameDetail.GameDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="app.rodrigonovoa.myvideogameslist.view.ui.menu.MenuActivity"
+            android:name=".view.ui.menu.MenuActivity"
             android:exported="true" />
     </application>
 

@@ -11,34 +11,20 @@ import app.rodrigonovoa.myvideogameslist.model.domain.PublisherDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.utils.DatabaseUtils
 import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class AddRecordViewModel(private val repository: GamesListRepository, private val dateFormatterUtil: DateFormatterUtil): ViewModel() {
+class AddRecordViewModel(private val repository: GamesListRepository, private val dbUtils: DatabaseUtils): ViewModel() {
     private val _recordInserted = MutableLiveData<Boolean?>().apply { postValue(false)}
     val recordInserted: LiveData<Boolean?> get() = _recordInserted
 
     fun insertRecord(gameDetailResponse: GameDetailResponse, fromCalendar: Calendar,
                      toCalendar: Calendar, score: Int, notes: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val game = Game(
-                gameDetailResponse.id,
-                gameDetailResponse.name,
-                gameDetailResponse.description,
-                dateFormatterUtil.fromDateStringToTimeStamp(
-                    gameDetailResponse.released
-                ),
-                getPublishersAsString(gameDetailResponse.publishers),
-                getPlatformsAsString(gameDetailResponse.platforms),
-                getEsrbRatingAsString(gameDetailResponse.esrb_rating),
-                gameDetailResponse.metacritic,
-                gameDetailResponse.website,
-                gameDetailResponse.background_image_additional
-            )
-
-            val insertedGameId = repository.insertGame(game)
+            val insertedGameId = dbUtils.insertGame(gameDetailResponse).await()
 
             val gameRecord = GameRecord(
                 null,
@@ -56,52 +42,6 @@ class AddRecordViewModel(private val repository: GamesListRepository, private va
                 _recordInserted.postValue(true)
             }
         }
-    }
-
-    private fun getEsrbRatingAsString(rating: EsrbRatingDetailResponse?): String {
-        if(rating != null){
-            return rating.name
-        }else{
-            return ""
-        }
-    }
-
-    private fun getPlatformsAsString(platforms: List<PlatformResponse>?): String{
-        var platformsAsString: String = ""
-
-        if(platforms != null){
-            platforms.forEach {
-                if(it != null){
-                    if(it.platform != null){
-                        if(platformsAsString.isEmpty()){
-                            platformsAsString += it.platform.name
-                        }else{
-                            platformsAsString += ", " + it.platform.name
-                        }
-                    }
-                }
-            }
-        }
-
-        return platformsAsString
-    }
-
-    private fun getPublishersAsString(publishers: List<PublisherDetailResponse>?): String {
-        var publishersAsString: String = ""
-
-        if(publishers != null){
-            publishers.forEach {
-                if(it != null){
-                    if(publishersAsString.isEmpty()){
-                        publishersAsString += it.name
-                    }else{
-                        publishersAsString += ", " + it.name
-                    }
-                }
-            }
-        }
-
-        return publishersAsString
     }
 
 }

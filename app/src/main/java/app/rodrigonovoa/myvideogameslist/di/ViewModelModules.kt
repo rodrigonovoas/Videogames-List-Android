@@ -1,6 +1,7 @@
 package app.rodrigonovoa.myvideogameslist.di
 
 
+import app.rodrigonovoa.myvideogameslist.view.ui.addPendingGame.AddPendingGameViewModel
 import app.rodrigonovoa.myvideogameslist.view.ui.addRecord.AddRecordViewModel
 import app.rodrigonovoa.myvideogameslist.view.ui.gameDetail.GameDetailViewModel
 import app.rodrigonovoa.myvideogameslist.view.ui.commonFragments.CommonListViewModel
@@ -15,4 +16,5 @@ val viewModelModules = module {
     viewModel { AddRecordViewModel(get(), get()) }
     viewModel { RecordDetailViewModel(get()) }
     viewModel { SplashViewModel(get()) }
+    viewModel { AddPendingGameViewModel(get(), get()) }
 }

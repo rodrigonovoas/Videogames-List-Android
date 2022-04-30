@@ -4,6 +4,7 @@ import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
 import app.rodrigonovoa.myvideogameslist.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
+import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
 import app.rodrigonovoa.myvideogameslist.model.localdb.User
 import app.rodrigonovoa.myvideogameslist.network.ApiService
 import app.rodrigonovoa.myvideogameslist.persistance.room.GamesListDb
@@ -28,6 +29,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
     }.flowOn(Dispatchers.IO)
 
     // ROOM
+
+    /**
+     * USER
+     */
     suspend fun insertUserIntoDb(user: User){
         localDb.userDao().insert(user)
     }
@@ -36,6 +41,9 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         return localDb.userDao().getFirstUSer()
     }
 
+    /**
+     * GAMES
+     */
     suspend fun getAllGamesFromDb(): List<Game>{
         return localDb.gameDao().getAll()
     }
@@ -48,6 +56,9 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         return localDb.gameDao().insert(game)
     }
 
+    /**
+     * RECORDS
+     */
     suspend fun getGameRecordsById(id:Int): GameRecord{
         return localDb.gameRecordDao().getRecordById(id)
     }
@@ -58,6 +69,22 @@ class GamesListRepository(private val apiService: ApiService, private val localD
 
     suspend fun insertGameRecord(record: GameRecord): Long{
         return localDb.gameRecordDao().insert(record)
+    }
+
+    /**
+     * PENDING GAMES
+     */
+
+    suspend fun getPendingGameById(id:Int): PendingGame{
+        return localDb.pendingGameDao().getPendingById(id)
+    }
+
+    suspend fun getPendingGamesByGameId(id:Int): List<PendingGame>{
+        return localDb.pendingGameDao().getPendingByGameId(id)
+    }
+
+    suspend fun insertPendingGame(pending: PendingGame): Long{
+        return localDb.pendingGameDao().insert(pending)
     }
 
 }

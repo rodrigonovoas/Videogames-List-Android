@@ -10,6 +10,7 @@ import android.widget.TextView
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityGameDetailBinding
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
+import app.rodrigonovoa.myvideogameslist.view.ui.addPendingGame.AddPendingGameActivity
 import app.rodrigonovoa.myvideogameslist.view.ui.addRecord.AddRecordActivity
 import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
@@ -116,6 +117,12 @@ class GameDetailActivity : AppCompatActivity() {
     private fun setAddRecordClickListener(game: GameDetailResponse){
         binding.btnAddRecord.setOnClickListener {
             val intent = Intent(this, AddRecordActivity::class.java)
+            intent.putExtra("EXTRA_GAME", game)
+            startActivity(intent)
+        }
+
+        binding.btnAddPending.setOnClickListener {
+            val intent = Intent(this, AddPendingGameActivity::class.java)
             intent.putExtra("EXTRA_GAME", game)
             startActivity(intent)
         }

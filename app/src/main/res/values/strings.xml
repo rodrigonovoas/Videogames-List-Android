@@ -22,8 +22,14 @@
     <string name="add_record_from_date_error">Debe introducir una fecha de inicio</string>
     <string name="add_record_to_date_error">Debe introducir una fecha de fin</string>
 
+    <!-- ADD PENDING -->
+
+    <string name="add_pending_spinner_state_1">Pending</string>
+    <string name="add_pending_spinner_state_2">Ongoing</string>
+
     <!-- GAME DETAIL -->
     <string name="game_detail_add_to_record">ADD TO RECORDS</string>
+    <string name="game_detail_add_to_pending">PENDING GAME</string>
     <string name="game_detail_game_title">GAME &#127918;</string>
     <string name="game_detail_info_title">INFO &#8505;</string>
     <string name="game_detail_description_title">DESCRIPTION &#128214;</string>

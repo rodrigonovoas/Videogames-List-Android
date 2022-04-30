@@ -20,5 +20,6 @@ data class PendingGame(
     @PrimaryKey(autoGenerate = true) val pendinggameid: Int?,
     val gameid: Int,
     val userid: Int,
-    val note: String
+    val note: String,
+    val state: String
 )
