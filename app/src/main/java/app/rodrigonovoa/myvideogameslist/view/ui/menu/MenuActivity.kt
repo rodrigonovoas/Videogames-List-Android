@@ -3,6 +3,7 @@ package app.rodrigonovoa.myvideogameslist.view.ui.menu
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import app.rodrigonovoa.myvideogameslist.Constants
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityMenuBinding
 import app.rodrigonovoa.myvideogameslist.view.ui.commonFragments.CommonListFragment
@@ -17,9 +18,9 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // fragments
-        val gamesFragment = CommonListFragment.newInstance(true)
-        val myListFragment = CommonListFragment.newInstance(false)
-        val pendingGamesFragment = CommonListFragment.newInstance(false)
+        val gamesFragment = CommonListFragment.newInstance(Constants.GAMES_TYPE)
+        val myListFragment = CommonListFragment.newInstance(Constants.RECORDS_TYPE)
+        val pendingGamesFragment = CommonListFragment.newInstance(Constants.PENDING_TYPE)
         val userOptionsFragment = UserOptionsFragment()
 
         // view listeners

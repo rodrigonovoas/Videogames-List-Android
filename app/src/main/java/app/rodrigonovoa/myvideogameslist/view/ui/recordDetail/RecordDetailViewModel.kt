@@ -21,7 +21,7 @@ class RecordDetailViewModel(private val repository: GamesListRepository): ViewMo
         viewModelScope.launch(Dispatchers.IO) {
             val record =  repository.getGameRecordsByGameId(id)
 
-            if(record != null){
+            if(record != null && record.isNotEmpty()){
                 getGameDetail(id)
                 _retrievedRecord.postValue(record[0])
             }

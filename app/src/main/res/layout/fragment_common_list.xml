@@ -18,7 +18,7 @@
             android:textAlignment="center"
             android:textSize="30dp"
             android:textColor="@color/white"
-            android:text="@string/common_list_title_a"/>
+            android:text="@string/common_list_title_games"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_common_list"

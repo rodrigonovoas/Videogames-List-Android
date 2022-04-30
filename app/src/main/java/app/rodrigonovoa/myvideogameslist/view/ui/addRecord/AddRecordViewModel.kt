@@ -24,11 +24,18 @@ class AddRecordViewModel(private val repository: GamesListRepository, private va
     fun insertRecord(gameDetailResponse: GameDetailResponse, fromCalendar: Calendar,
                      toCalendar: Calendar, score: Int, notes: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val insertedGameId = dbUtils.insertGame(gameDetailResponse).await()
+            var id = 0
+            val game = dbUtils.checkIfGameExist(gameDetailResponse.id).await()
+
+            if(game != null){
+                id = game.gameid ?: 0
+            }else{
+                id = dbUtils.insertGame(gameDetailResponse).await().toInt()
+            }
 
             val gameRecord = GameRecord(
                 null,
-                insertedGameId.toInt(),
+                id,
                 1,
                 fromCalendar.timeInMillis,
                 toCalendar.timeInMillis,

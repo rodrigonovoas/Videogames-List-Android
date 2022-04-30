@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
 
 class DatabaseUtils(private val repository: GamesListRepository, private val dateFormatterUtil: DateFormatterUtil) {
     suspend fun insertGame(gameDetailResponse: GameDetailResponse) =
-        CoroutineScope(Dispatchers.Default).async {
+        CoroutineScope(Dispatchers.IO).async {
             val game = Game(
                 gameDetailResponse.id,
                 gameDetailResponse.name,
@@ -30,6 +30,13 @@ class DatabaseUtils(private val repository: GamesListRepository, private val dat
             val insertGame = async { repository.insertGame(game) }
 
             return@async insertGame.await()
+        }
+
+    suspend fun checkIfGameExist(gameId: Int) =
+        CoroutineScope(Dispatchers.IO).async {
+            val gameDetail = async { repository.getGameByIdFromDb(gameId) }
+
+            return@async gameDetail.await()
         }
 
     private fun getEsrbRatingAsString(rating: EsrbRatingDetailResponse?): String {

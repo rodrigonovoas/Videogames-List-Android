@@ -23,9 +23,15 @@ class AddPendingGameViewModel(private val repository: GamesListRepository, priva
 
     fun insertGameInDb(gameDetailResponse: GameDetailResponse, notes: String, state: String){
         viewModelScope.launch(Dispatchers.IO) {
-            val gameId = dbUtils.insertGame(gameDetailResponse).await()
+            var id = 0
+            val game = dbUtils.checkIfGameExist(gameDetailResponse.id).await()
+            if(game != null){
+                id = game.gameid ?: 0
+            }else{
+                id = dbUtils.insertGame(gameDetailResponse).await().toInt()
+            }
 
-            if(gameId > 0){
+            if(id > 0){
                 val pending = PendingGame(null, gameDetailResponse.id, 1, notes, state)
                 insertPendingGame(pending)
             }

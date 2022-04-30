@@ -10,19 +10,21 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import app.rodrigonovoa.myvideogameslist.Constants
 import app.rodrigonovoa.myvideogameslist.R
+import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GenreDetailResponse
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.view.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.view.ui.recordDetail.RecordDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
+import app.rodrigonovoa.myvideogameslist.view.ui.commonFragments.CommonListViewModel
 import com.afollestad.materialdialogs.MaterialDialog
 
 class CommonListAdapter(
-    private val list: List<GameListItemResponse>, private val listFromRepo: Boolean = true,
-    private val completedDates: List<String>? = null,
-    private val repository: GamesListRepository,
+    private val list: List<GameListItemResponse>, private val listType: String,
+    private val completedDates: List<String> = listOf(),
     private val glideUtils: GlideUtils
 ) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
@@ -30,6 +32,7 @@ class CommonListAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardViewGame: CardView
         val tvGameTitle: TextView
+        val tvGameExtraText: TextView
         val tvGameRelaseDate: TextView
         val tvGameMetacritic: TextView
         val tvGameGenres: TextView
@@ -39,6 +42,7 @@ class CommonListAdapter(
 
         init {
             tvGameTitle = view.findViewById(R.id.tv_game_title)
+            tvGameExtraText = view.findViewById(R.id.tv_aux_text)
             tvGameRelaseDate = view.findViewById(R.id.tv_game_release_date)
             tvGameMetacritic = view.findViewById(R.id.tv_game_metacritic)
             tvGameGenres = view.findViewById(R.id.tv_game_genres)
@@ -66,48 +70,68 @@ class CommonListAdapter(
         // contents of the view with that element
         viewHolder.tvGameTitle.text = game.name
 
-        if(listFromRepo){
-            viewHolder.tvGameRelaseDate.text = game.released
-            viewHolder.tvGameMetacritic.text = game.metacritic.toString()
-
-            val platforms = game.platforms ?: listOf()
-
-            if (platforms.size == 0) {
-                viewHolder.tvGamePlatforms.visibility = View.GONE
-            }else{
-                setPlatforms(game, viewHolder.tvGamePlatforms)
-            }
-
-            val genres = game.genres
-            setGenres(genres, viewHolder.tvGameGenres)
-        }else{
-            if(completedDates != null){
-                viewHolder.tvGameRelaseDate.text =
-                    viewHolder.tvGameRelaseDate.context.getString(R.string.common_list_complete_date) + " " + completedDates[position]
-            }else{
-                viewHolder.tvGameRelaseDate.visibility = View.GONE
-            }
-            viewHolder.llGameMetacritic.visibility = View.GONE
-            viewHolder.tvGamePlatforms.visibility = View.GONE
-            viewHolder.tvGameGenres.visibility = View.GONE
+        if (listType.equals(Constants.GAMES_TYPE)) {
+            setGamesTypeView(viewHolder, game)
+        } else if (listType.equals(Constants.RECORDS_TYPE)) {
+            setRecordsTypeView(viewHolder, position)
+        } else if (listType.equals(Constants.PENDING_TYPE)) {
+            setPendingTypeView(viewHolder, position)
         }
 
         val imageSrc = game.background_image ?: ""
         glideUtils.loadImage(imageSrc, viewHolder.imvGameImage)
 
         viewHolder.cardViewGame.setOnClickListener {
-            if(listFromRepo){
+            if(listType.equals(Constants.GAMES_TYPE)){
                 openGameDetailActivity(context, position)
-            }else {
+            }else if(listType.equals(Constants.RECORDS_TYPE)){
                 openRecordAndGameDetailDialog(context, position)
             }
         }
+    }
+
+    private fun setPendingTypeView(viewHolder: ViewHolder, position: Int) {
+        viewHolder.tvGameExtraText.text = list[position].released
+        viewHolder.tvGameExtraText.visibility = View.VISIBLE
+        viewHolder.tvGameRelaseDate.visibility = View.GONE
+        viewHolder.llGameMetacritic.visibility = View.GONE
+        viewHolder.tvGamePlatforms.visibility = View.GONE
+        viewHolder.tvGameGenres.visibility = View.GONE
+    }
+
+    private fun setRecordsTypeView(viewHolder: ViewHolder, position: Int) {
+        if(!completedDates.isEmpty()){
+            viewHolder.tvGameRelaseDate.text =
+                viewHolder.tvGameRelaseDate.context.getString(R.string.common_list_complete_date) + " " + completedDates[position]
+        }else{
+            viewHolder.tvGameRelaseDate.visibility = View.GONE
+        }
+        viewHolder.llGameMetacritic.visibility = View.GONE
+        viewHolder.tvGamePlatforms.visibility = View.GONE
+        viewHolder.tvGameGenres.visibility = View.GONE
+    }
+
+    private fun setGamesTypeView(viewHolder: ViewHolder, game: GameListItemResponse) {
+        viewHolder.tvGameRelaseDate.text = game.released
+        viewHolder.tvGameMetacritic.text = game.metacritic.toString()
+
+        val platforms = game.platforms ?: listOf()
+
+        if (platforms.size == 0) {
+            viewHolder.tvGamePlatforms.visibility = View.GONE
+        }else{
+            setPlatforms(game, viewHolder.tvGamePlatforms)
+        }
+
+        val genres = game.genres
+        setGenres(genres, viewHolder.tvGameGenres)
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = list.size
 
     private fun openGameDetailActivity(context: Context, position: Int){
+        val listFromRepo = listType.equals(Constants.GAMES_TYPE)
         val intent = Intent(context,GameDetailActivity::class.java)
         intent.putExtra("id",list[position].id)
         intent.putExtra("fromRepo",listFromRepo)

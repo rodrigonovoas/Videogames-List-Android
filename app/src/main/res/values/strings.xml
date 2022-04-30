@@ -41,8 +41,9 @@
     <string name="game_detail_info_rate">ESRB Rating: </string>
 
     <!-- COMMON LIST -->
-    <string name="common_list_title_a">Games &#127918;</string>
-    <string name="common_list_title_b">My Records</string>
+    <string name="common_list_title_games">Games &#127918;</string>
+    <string name="common_list_title_records">My Records</string>
+    <string name="common_list_title_pending">Pending Games</string>
     <string name="common_list_metacritic">Metacritic: </string>
     <string name="common_list_complete_date">Completed on: </string>
 

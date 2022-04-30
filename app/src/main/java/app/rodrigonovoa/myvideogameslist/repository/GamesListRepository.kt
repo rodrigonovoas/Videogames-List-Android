@@ -2,10 +2,7 @@ package app.rodrigonovoa.myvideogameslist.repository
 
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
-import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
-import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
-import app.rodrigonovoa.myvideogameslist.model.localdb.User
+import app.rodrigonovoa.myvideogameslist.model.localdb.*
 import app.rodrigonovoa.myvideogameslist.network.ApiService
 import app.rodrigonovoa.myvideogameslist.persistance.room.GamesListDb
 import kotlinx.coroutines.Dispatchers
@@ -75,7 +72,15 @@ class GamesListRepository(private val apiService: ApiService, private val localD
      * PENDING GAMES
      */
 
-    suspend fun getPendingGameById(id:Int): PendingGame{
+    suspend fun getAllPendingGame(): List<PendingGame>{
+        return localDb.pendingGameDao().getAll()
+    }
+
+    suspend fun getAllPendingGameWithDetail(): List<PendingGameDetail>{
+        return localDb.pendingGameDao().getAllWithDetail()
+    }
+
+   suspend fun getPendingGameById(id:Int): PendingGame{
         return localDb.pendingGameDao().getPendingById(id)
     }
 
