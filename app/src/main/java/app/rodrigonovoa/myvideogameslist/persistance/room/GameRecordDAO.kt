@@ -1,9 +1,11 @@
 package app.rodrigonovoa.myvideogameslist.persistance.room
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
+import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
 
 @Dao
 interface GameRecordDAO {
@@ -18,4 +20,7 @@ interface GameRecordDAO {
 
     @Insert
     fun insert(gameRecord: GameRecord): Long
+
+    @Delete
+    fun delete(gameRecord: GameRecord): Int
 }

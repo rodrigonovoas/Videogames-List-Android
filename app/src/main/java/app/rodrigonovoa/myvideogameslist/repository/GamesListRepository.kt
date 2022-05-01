@@ -45,6 +45,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         return localDb.gameDao().getAll()
     }
 
+    suspend fun getAllGamesInGameRecorFromDb(): List<Game>{
+        return localDb.gameDao().getAllFromGameRecord()
+    }
+
     suspend fun getGameByIdFromDb(id: Int): Game {
         return localDb.gameDao().getGameById(id)
     }
@@ -56,6 +60,7 @@ class GamesListRepository(private val apiService: ApiService, private val localD
     /**
      * RECORDS
      */
+
     suspend fun getGameRecordsById(id:Int): GameRecord{
         return localDb.gameRecordDao().getRecordById(id)
     }
@@ -66,6 +71,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
 
     suspend fun insertGameRecord(record: GameRecord): Long{
         return localDb.gameRecordDao().insert(record)
+    }
+
+    suspend fun deleteGameRecord(record: GameRecord): Int {
+        return localDb.gameRecordDao().delete(record)
     }
 
     /**
@@ -90,6 +99,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
 
     suspend fun insertPendingGame(pending: PendingGame): Long{
         return localDb.pendingGameDao().insert(pending)
+    }
+
+    suspend fun deletePendingGame(pending: PendingGame): Int {
+        return localDb.pendingGameDao().delete(pending)
     }
 
 }

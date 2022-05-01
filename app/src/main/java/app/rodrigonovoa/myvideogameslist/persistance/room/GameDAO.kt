@@ -10,6 +10,9 @@ interface GameDAO {
     @Query("SELECT * from Game")
     fun getAll(): List<Game>
 
+    @Query("SELECT * from Game join GameRecord on Game.gameid = GameRecord.gameid")
+    fun getAllFromGameRecord(): List<Game>
+
     @Insert
     fun insert(game: Game): Long
 

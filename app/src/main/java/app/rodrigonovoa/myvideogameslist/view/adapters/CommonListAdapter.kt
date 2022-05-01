@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.Constants
@@ -15,14 +16,19 @@ import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GenreDetailResponse
+import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
 import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGameDetail
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import app.rodrigonovoa.myvideogameslist.view.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.view.ui.recordDetail.RecordDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
+import app.rodrigonovoa.myvideogameslist.view.ui.commonFragments.CommonListFragment
 import app.rodrigonovoa.myvideogameslist.view.ui.commonFragments.CommonListViewModel
 import com.afollestad.materialdialogs.MaterialDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CommonListAdapter(
     private val list: List<GameListItemResponse>,
@@ -30,7 +36,8 @@ class CommonListAdapter(
     private val glideUtils: GlideUtils,
     private val dateFormUtil: DateFormatterUtil,
     private val pendingGames: List<PendingGameDetail>,
-    private val completedDates: List<String>
+    private val completedDates: List<String>,
+    private val fragment: CommonListFragment? = null
 ) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
 
@@ -98,6 +105,8 @@ class CommonListAdapter(
                 openGameDetailActivity(context, position)
             }else if(listType.equals(Constants.RECORDS_TYPE)){
                 openRecordAndGameDetailDialog(context, position)
+            }else if(listType.equals(Constants.PENDING_TYPE)){
+                openPendingGameDialog(context, pendingGames[position])
             }
         }
     }
@@ -205,6 +214,18 @@ class CommonListAdapter(
             }
             negativeButton(R.string.common_list_dialog_option_1){
                 openGameDetailActivity(context, position)
+            }
+        }
+    }
+
+    private fun openPendingGameDialog(context: Context, pendingGameDetail: PendingGameDetail){
+        MaterialDialog(context).show {
+            title(R.string.common_list_pending_dialog_title)
+            positiveButton(R.string.common_list_pending_dialog_option_2){
+                fragment!!.model.deletePendingGame(pendingGameDetail)
+            }
+            negativeButton(R.string.common_list_pending_dialog_option_1){
+                return@negativeButton
             }
         }
     }

@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.view.ui.commonFragments
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -62,9 +63,9 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
         }
     }
 
-    fun getGamesFromLocalDb(){
+    fun getGamesInGameRecordsFromLocalDb(){
         viewModelScope.launch(Dispatchers.IO) {
-            val games = repository.getAllGamesFromDb()
+            val games = repository.getAllGamesInGameRecorFromDb()
 
             if (games.size > 0) {
                 setGameList(mapGameToGamesListResponse(games))
@@ -82,6 +83,19 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
 
     suspend private fun getPendingGames() = CoroutineScope(Dispatchers.IO).async {
         return@async repository.getAllPendingGameWithDetail()
+    }
+
+    fun deletePendingGame(item: PendingGameDetail){
+        if(repository != null){
+            val pendingGame = PendingGame(item.pendinggameid, item.gameid, 1, "", item.state, item.addeddate)
+            CoroutineScope(Dispatchers.IO).launch {
+                val isDeleted = repository.deletePendingGame(pendingGame)
+
+                if(isDeleted == 1){
+                    getPendingGamesFromLocalDb()
+                }
+            }
+        }
     }
 
     private fun mapGameToGamesListResponse(games:List<Game>): GamesListResponse{

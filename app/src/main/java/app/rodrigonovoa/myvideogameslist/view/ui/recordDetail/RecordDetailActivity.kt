@@ -36,6 +36,12 @@ class RecordDetailActivity : AppCompatActivity() {
             }
         }
 
+        this.model.recordDeleted.observe(this) { it ->
+            if(it){
+                finish()
+            }
+        }
+
         model.getRecordFromLocalDb(id as Int)
     }
 
@@ -44,6 +50,10 @@ class RecordDetailActivity : AppCompatActivity() {
         binding.tvToContent.setText(dateFormatterUtil.fromTimeStampToDateString(record.enddate))
         binding.tvScoreContent.setText(record.score.toString())
         binding.tvNotesContent.setText(record.notes)
+
+        binding.btnDeleteRecord.setOnClickListener {
+            model.deleteRecordFromDb(record)
+        }
     }
 
     private fun loadGameData(game: Game){

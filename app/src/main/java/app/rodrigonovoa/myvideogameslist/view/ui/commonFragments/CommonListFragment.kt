@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.Constants
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.model.domain.GameListItemResponse
+import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
+import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import app.rodrigonovoa.myvideogameslist.view.adapters.CommonListAdapter
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
@@ -19,7 +21,7 @@ import org.koin.android.ext.android.inject
 
 class CommonListFragment : Fragment() {
 
-    private val model: CommonListViewModel by inject()
+    val model: CommonListViewModel by inject()
     private val glideUtils: GlideUtils by inject()
     private val dateFormatterUtil: DateFormatterUtil by inject()
     private var listType: String = ""
@@ -46,30 +48,46 @@ class CommonListFragment : Fragment() {
                     dateFormatterUtil,
                     model.getPendingGameList(),
                     model.getGameCompleteDates(),
+                    this
                 )
             }
         }
 
+        setListTitle(tvTitle)
+    }
+
+    private fun setListTitle(tvTitle: TextView) {
         when(listType){
-            Constants.GAMES_TYPE -> setGamesList(tvTitle)
-            Constants.RECORDS_TYPE -> setRecordsList(tvTitle)
-            Constants.PENDING_TYPE ->  setPendingList(tvTitle)
+            Constants.GAMES_TYPE ->  tvTitle.text = getString(R.string.common_list_title_games)
+            Constants.RECORDS_TYPE ->   tvTitle.text = getString(R.string.common_list_title_records)
+            Constants.PENDING_TYPE ->   tvTitle.text = getString(R.string.common_list_title_pending)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadData()
+    }
+
+    private fun loadData() {
+        when(listType){
+            Constants.GAMES_TYPE -> setGamesList()
+            Constants.RECORDS_TYPE -> setRecordsList()
+            Constants.PENDING_TYPE ->  setPendingList()
         }
     }
 
     @OptIn(InternalCoroutinesApi::class)
-    private fun setGamesList(tvTitle: TextView){
-        tvTitle.text = getString(R.string.common_list_title_games)
+    private fun setGamesList(){
         model.getGamesFromRepo()
     }
 
-    private fun setRecordsList(tvTitle: TextView){
-        tvTitle.text = getString(R.string.common_list_title_records)
-        model.getGamesFromLocalDb()
+    private fun setRecordsList(){
+        model.getGamesInGameRecordsFromLocalDb()
     }
 
-    private fun setPendingList(tvTitle: TextView){
-        tvTitle.text = getString(R.string.common_list_title_pending)
+    private fun setPendingList(){
         model.getPendingGamesFromLocalDb()
     }
 

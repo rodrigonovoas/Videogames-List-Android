@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import app.rodrigonovoa.myvideogameslist.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,6 +18,9 @@ class RecordDetailViewModel(private val repository: GamesListRepository): ViewMo
     private val _retrievedGame = MutableLiveData<Game?>().apply { postValue(null)}
     val retrievedGame: LiveData<Game?> get() = _retrievedGame
 
+    private val _recordDeleted = MutableLiveData<Boolean>().apply { postValue(false)}
+    val recordDeleted: LiveData<Boolean> get() = _recordDeleted
+
     fun getRecordFromLocalDb(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
             val record =  repository.getGameRecordsByGameId(id)
@@ -24,6 +28,18 @@ class RecordDetailViewModel(private val repository: GamesListRepository): ViewMo
             if(record != null && record.isNotEmpty()){
                 getGameDetail(id)
                 _retrievedRecord.postValue(record[0])
+            }
+        }
+    }
+
+    fun deleteRecordFromDb(gameRecord: GameRecord){
+        if(repository != null){
+            CoroutineScope(Dispatchers.IO).launch {
+                val isDeleted = repository.deleteGameRecord(gameRecord)
+
+                if(isDeleted == 1){
+                    _recordDeleted.postValue(true)
+                }
             }
         }
     }
