@@ -34,6 +34,7 @@ class GameDetailActivity : AppCompatActivity() {
             binding.btnAddRecord.visibility = View.VISIBLE
             model.getGameFromRepo(id.toInt())
             model.checkIfGameRecordExists(id.toInt())
+            model.checkIfPendingGameExists(id.toInt())
         }else{
             binding.btnAddRecord.visibility = View.GONE
             model.getGameFromLocalDb(id.toInt())
@@ -51,7 +52,14 @@ class GameDetailActivity : AppCompatActivity() {
         this.model.disableAddButton.observe(this) { disable ->
             if(disable == true){
                 binding.btnAddRecord.isEnabled = false
-                binding.btnAddRecord.text = getString(R.string.common_added)
+                binding.btnAddRecord.text = getString(R.string.common_added_record_list)
+            }
+        }
+
+        this.model.disableAddPendingButton.observe(this) { disable ->
+            if(disable == true){
+                binding.btnAddPending.isEnabled = false
+                binding.btnAddPending.text = getString(R.string.common_added_pending_list)
             }
         }
     }
