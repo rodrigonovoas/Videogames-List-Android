@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import app.rodrigonovoa.myvideogameslist.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GamesListResponse
 import app.rodrigonovoa.myvideogameslist.model.localdb.Game
+import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
 import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGameDetail
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
@@ -17,11 +18,16 @@ import kotlinx.coroutines.flow.collect
 
 class CommonListViewModel(private val repository: GamesListRepository, private val dateFormatterUtil: DateFormatterUtil): ViewModel() {
     private var _gameCompleteDates: List<String> = listOf()
+    private var _pendingGames: List<PendingGameDetail> = listOf()
     private val _gamesList = MutableLiveData<GamesListResponse>().apply { postValue(null)}
     val gamesList: LiveData<GamesListResponse> get() = _gamesList
 
     fun setGameList(list: GamesListResponse){
         _gamesList.postValue(list)
+    }
+
+    fun getPendingGameList(): List<PendingGameDetail> {
+        return _pendingGames
     }
 
     // TODO: this is the release date, not the complete date; retrieve from GameRecord
@@ -69,12 +75,8 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
     fun getPendingGamesFromLocalDb(){
         viewModelScope.launch(Dispatchers.IO) {
             val pendingGames = getPendingGames().await()
-
-            if(pendingGames.size > 0){
-                pendingGames.forEach {
-                    setGameList(mapPendingGameToGamesListResponse(pendingGames))
-                }
-            }
+            _pendingGames = pendingGames
+            setGameList(GamesListResponse(0, "", "", null))
         }
     }
 
@@ -94,18 +96,6 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
         setGameCompleteDates(games)
 
         return GamesListResponse(games.size, "", "", gameResponseDetailList.toList())
-    }
-
-    private fun mapPendingGameToGamesListResponse(list: List<PendingGameDetail>): GamesListResponse{
-        var gameResponseDetailList: MutableList<GameListItemResponse> = mutableListOf()
-
-        list.forEach {
-            gameResponseDetailList.add(
-                GameListItemResponse(it.gameid!!, it.name, it.state, it.pendinggameid, listOf(), listOf(), it.image)
-            )
-        }
-
-        return GamesListResponse(list.size, "", "", gameResponseDetailList.toList())
     }
 
 }

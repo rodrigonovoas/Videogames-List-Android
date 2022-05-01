@@ -46,6 +46,7 @@
     <string name="common_list_title_pending">Pending Games</string>
     <string name="common_list_metacritic">Metacritic: </string>
     <string name="common_list_complete_date">Completed on: </string>
+    <string name="common_list_added_date">Added since: </string>
 
     <string name="common_list_dialog_title">Select an option</string>
     <string name="common_list_dialog_option_1">Game Detail</string>

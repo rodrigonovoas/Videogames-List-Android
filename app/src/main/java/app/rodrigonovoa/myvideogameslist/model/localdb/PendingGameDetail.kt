@@ -5,5 +5,6 @@ data class PendingGameDetail(
     val gameid: Int,
     val name: String,
     val state: String,
-    val image: String
+    val image: String,
+    val addeddate: Long
 )

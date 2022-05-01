@@ -12,7 +12,7 @@ interface PendingGameDAO {
     @Query("SELECT * from PendingGame")
     fun getAll(): List<PendingGame>
 
-    @Query("SELECT PendingGame.pendinggameid, PendingGame.state, Game.gameid, Game.name, Game.image from PendingGame left join Game on PendingGame.gameid = Game.gameid")
+    @Query("SELECT PendingGame.pendinggameid, PendingGame.state, PendingGame.addeddate, Game.gameid, Game.name, Game.image from PendingGame left join Game on PendingGame.gameid = Game.gameid")
     fun getAllWithDetail(): List<PendingGameDetail>
 
     @Query("SELECT * from PendingGame where gameid = :id")

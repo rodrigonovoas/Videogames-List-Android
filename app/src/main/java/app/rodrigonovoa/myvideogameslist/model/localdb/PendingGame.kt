@@ -21,5 +21,6 @@ data class PendingGame(
     val gameid: Int,
     val userid: Int,
     val note: String,
-    val state: String
+    val state: String,
+    val addeddate: Long,
 )

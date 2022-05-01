@@ -1,5 +1,6 @@
 package app.rodrigonovoa.myvideogameslist.view.ui.addPendingGame
 
+import android.text.format.DateUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,15 @@ import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.utils.DatabaseUtils
+import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
-class AddPendingGameViewModel(private val repository: GamesListRepository, private val dbUtils: DatabaseUtils): ViewModel() {
+class AddPendingGameViewModel(
+    private val repository: GamesListRepository,
+    private val dbUtils: DatabaseUtils
+) : ViewModel() {
     private val _recordInserted = MutableLiveData<Boolean?>().apply { postValue(false)}
     val recordInserted: LiveData<Boolean?> get() = _recordInserted
 
@@ -32,7 +38,7 @@ class AddPendingGameViewModel(private val repository: GamesListRepository, priva
             }
 
             if(id > 0){
-                val pending = PendingGame(null, gameDetailResponse.id, 1, notes, state)
+                val pending = PendingGame(null, gameDetailResponse.id, 1, notes, state, Calendar.getInstance().timeInMillis)
                 insertPendingGame(pending)
             }
         }

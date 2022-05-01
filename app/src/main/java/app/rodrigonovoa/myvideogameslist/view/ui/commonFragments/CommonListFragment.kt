@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.Constants
 import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.model.domain.GameListItemResponse
+import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import app.rodrigonovoa.myvideogameslist.view.adapters.CommonListAdapter
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -20,6 +21,7 @@ class CommonListFragment : Fragment() {
 
     private val model: CommonListViewModel by inject()
     private val glideUtils: GlideUtils by inject()
+    private val dateFormatterUtil: DateFormatterUtil by inject()
     private var listType: String = ""
 
     @OptIn(InternalCoroutinesApi::class)
@@ -35,9 +37,16 @@ class CommonListFragment : Fragment() {
 
         this.model.gamesList.observe(viewLifecycleOwner) { gameList ->
             val games: List<GameListItemResponse> = gameList?.results ?: listOf()
-            if(games.size > 0){
+            if(games.isNotEmpty() || model.getPendingGameList().isNotEmpty()){
                 recycler.layoutManager = LinearLayoutManager(context)
-                recycler.adapter = CommonListAdapter(games, listType, model.getGameCompleteDates(), glideUtils)
+                recycler.adapter = CommonListAdapter(
+                    games,
+                    listType,
+                    glideUtils,
+                    dateFormatterUtil,
+                    model.getPendingGameList(),
+                    model.getGameCompleteDates(),
+                )
             }
         }
 

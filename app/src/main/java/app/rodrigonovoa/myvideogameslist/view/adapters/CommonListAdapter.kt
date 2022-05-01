@@ -15,7 +15,9 @@ import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameListItemResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GenreDetailResponse
+import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGameDetail
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import app.rodrigonovoa.myvideogameslist.view.ui.gameDetail.GameDetailActivity
 import app.rodrigonovoa.myvideogameslist.view.ui.recordDetail.RecordDetailActivity
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
@@ -23,9 +25,12 @@ import app.rodrigonovoa.myvideogameslist.view.ui.commonFragments.CommonListViewM
 import com.afollestad.materialdialogs.MaterialDialog
 
 class CommonListAdapter(
-    private val list: List<GameListItemResponse>, private val listType: String,
-    private val completedDates: List<String> = listOf(),
-    private val glideUtils: GlideUtils
+    private val list: List<GameListItemResponse>,
+    private val listType: String,
+    private val glideUtils: GlideUtils,
+    private val dateFormUtil: DateFormatterUtil,
+    private val pendingGames: List<PendingGameDetail>,
+    private val completedDates: List<String>
 ) :
     RecyclerView.Adapter<CommonListAdapter.ViewHolder>() {
 
@@ -65,20 +70,27 @@ class CommonListAdapter(
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val context = viewHolder.imvGameImage.context
-        val game = list[position]
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.tvGameTitle.text = game.name
+
+        var imageSrc = ""
+        if(pendingGames.isNotEmpty()){
+            val pendingGame = pendingGames[position]
+            viewHolder.tvGameTitle.text = pendingGame!!.name
+            imageSrc = pendingGame!!.image
+        }else{
+            val game = list[position]
+            viewHolder.tvGameTitle.text = game!!.name
+            imageSrc = game!!.background_image ?: ""
+        }
 
         if (listType.equals(Constants.GAMES_TYPE)) {
-            setGamesTypeView(viewHolder, game)
+            val game = list[position]
+            setGamesTypeView(viewHolder, game!!)
         } else if (listType.equals(Constants.RECORDS_TYPE)) {
             setRecordsTypeView(viewHolder, position)
         } else if (listType.equals(Constants.PENDING_TYPE)) {
             setPendingTypeView(viewHolder, position)
         }
 
-        val imageSrc = game.background_image ?: ""
         glideUtils.loadImage(imageSrc, viewHolder.imvGameImage)
 
         viewHolder.cardViewGame.setOnClickListener {
@@ -91,12 +103,16 @@ class CommonListAdapter(
     }
 
     private fun setPendingTypeView(viewHolder: ViewHolder, position: Int) {
-        viewHolder.tvGameExtraText.text = list[position].released
-        viewHolder.tvGameExtraText.visibility = View.VISIBLE
-        viewHolder.tvGameRelaseDate.visibility = View.GONE
-        viewHolder.llGameMetacritic.visibility = View.GONE
-        viewHolder.tvGamePlatforms.visibility = View.GONE
-        viewHolder.tvGameGenres.visibility = View.GONE
+        if(pendingGames.size > 0){
+            val date_text = viewHolder.tvGameRelaseDate.context.getString(R.string.common_list_added_date)
+            viewHolder.tvGameExtraText.text = pendingGames[position].state
+            viewHolder.tvGameRelaseDate.text = date_text + " " +dateFormUtil.fromTimeStampToDateString(pendingGames[position].addeddate)
+            viewHolder.tvGameExtraText.visibility = View.VISIBLE
+            viewHolder.tvGameRelaseDate.visibility = View.VISIBLE
+            viewHolder.llGameMetacritic.visibility = View.GONE
+            viewHolder.tvGamePlatforms.visibility = View.GONE
+            viewHolder.tvGameGenres.visibility = View.GONE
+        }
     }
 
     private fun setRecordsTypeView(viewHolder: ViewHolder, position: Int) {
@@ -128,7 +144,15 @@ class CommonListAdapter(
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = list.size
+    override fun getItemCount(): Int {
+        if(pendingGames.isNotEmpty()){
+            return pendingGames.size
+        }else if (list.isNotEmpty()){
+            return list.size
+        } else{
+            return 0
+        }
+    }
 
     private fun openGameDetailActivity(context: Context, position: Int){
         val listFromRepo = listType.equals(Constants.GAMES_TYPE)
