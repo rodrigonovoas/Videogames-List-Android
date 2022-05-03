@@ -57,6 +57,14 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         return localDb.gameDao().insert(game)
     }
 
+    suspend fun deleteGame(game: Game): Int{
+        return localDb.gameDao().delete(game)
+    }
+
+    suspend fun deleteGameById(id: Int): Int{
+        return localDb.gameDao().deleteById(id)
+    }
+
     /**
      * RECORDS
      */

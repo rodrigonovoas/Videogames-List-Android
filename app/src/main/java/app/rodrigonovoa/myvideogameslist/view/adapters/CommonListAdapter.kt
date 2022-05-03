@@ -221,10 +221,10 @@ class CommonListAdapter(
     private fun openPendingGameDialog(context: Context, pendingGameDetail: PendingGameDetail){
         MaterialDialog(context).show {
             title(R.string.common_list_pending_dialog_title)
-            positiveButton(R.string.common_list_pending_dialog_option_2){
+            positiveButton(R.string.common_list_pending_dialog_option_1){
                 fragment!!.model.deletePendingGame(pendingGameDetail)
             }
-            negativeButton(R.string.common_list_pending_dialog_option_1){
+            negativeButton(R.string.common_list_pending_dialog_option_2){
                 return@negativeButton
             }
         }

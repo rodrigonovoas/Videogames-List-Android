@@ -4,15 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.rodrigonovoa.myvideogameslist.model.domain.EsrbRatingDetailResponse
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.PlatformResponse
-import app.rodrigonovoa.myvideogameslist.model.domain.PublisherDetailResponse
-import app.rodrigonovoa.myvideogameslist.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.model.localdb.GameRecord
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
 import app.rodrigonovoa.myvideogameslist.utils.DatabaseUtils
-import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*

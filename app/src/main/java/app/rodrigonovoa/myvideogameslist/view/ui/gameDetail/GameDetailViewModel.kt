@@ -47,7 +47,7 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             val list =  repository.getGameRecordsByGameId(gameId)
 
-            if(list.size > 0){
+            if(list.isNotEmpty()){
                 _disableAddButton.postValue(true)
             }
         }
@@ -57,7 +57,7 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             val game =  repository.getPendingGamesByGameId(gameId)
 
-            if(game != null){
+            if(game.isNotEmpty()){
                 _disableAddPendingButton.postValue(true)
             }
         }

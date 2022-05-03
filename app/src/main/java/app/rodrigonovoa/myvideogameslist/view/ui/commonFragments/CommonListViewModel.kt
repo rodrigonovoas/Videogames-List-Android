@@ -12,12 +12,17 @@ import app.rodrigonovoa.myvideogameslist.model.localdb.Game
 import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGame
 import app.rodrigonovoa.myvideogameslist.model.localdb.PendingGameDetail
 import app.rodrigonovoa.myvideogameslist.repository.GamesListRepository
+import app.rodrigonovoa.myvideogameslist.utils.DatabaseUtils
 import app.rodrigonovoa.myvideogameslist.utils.DateFormatterUtil
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 
-class CommonListViewModel(private val repository: GamesListRepository, private val dateFormatterUtil: DateFormatterUtil): ViewModel() {
+class CommonListViewModel(
+    private val repository: GamesListRepository,
+    private val dateFormatterUtil: DateFormatterUtil,
+    private val dbUtils: DatabaseUtils
+) : ViewModel() {
     private var _gameCompleteDates: List<String> = listOf()
     private var _pendingGames: List<PendingGameDetail> = listOf()
     private val _gamesList = MutableLiveData<GamesListResponse>().apply { postValue(null)}
@@ -92,6 +97,11 @@ class CommonListViewModel(private val repository: GamesListRepository, private v
                 val isDeleted = repository.deletePendingGame(pendingGame)
 
                 if(isDeleted == 1){
+                    val gameExists = dbUtils.checkIfGameExistInRecordsList(item.gameid).await()
+
+                    if(gameExists.isEmpty()){
+                        repository.deleteGameById(item.gameid)
+                    }
                     getPendingGamesFromLocalDb()
                 }
             }

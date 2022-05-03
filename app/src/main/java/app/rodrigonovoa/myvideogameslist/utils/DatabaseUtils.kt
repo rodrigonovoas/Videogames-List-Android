@@ -39,6 +39,20 @@ class DatabaseUtils(private val repository: GamesListRepository, private val dat
             return@async gameDetail.await()
         }
 
+    suspend fun checkIfGameExistInRecordsList(gameId: Int) =
+        CoroutineScope(Dispatchers.IO).async {
+            val records = async { repository.getGameRecordsByGameId(gameId) }
+
+            return@async records.await()
+        }
+
+    suspend fun checkIfGameExistInPendingList(gameId: Int) =
+        CoroutineScope(Dispatchers.IO).async {
+            val pendings = async { repository.getPendingGamesByGameId(gameId) }
+
+            return@async pendings.await()
+        }
+
     private fun getEsrbRatingAsString(rating: EsrbRatingDetailResponse?): String {
         if(rating != null){
             return rating.name
