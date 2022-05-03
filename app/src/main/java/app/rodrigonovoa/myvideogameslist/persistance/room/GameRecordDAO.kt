@@ -18,6 +18,9 @@ interface GameRecordDAO {
     @Query("SELECT * from GameRecord where gamerecordid = :id")
     fun getRecordById(id:Int): GameRecord
 
+    @Query("SELECT enddate from GameRecord where gameid = :id")
+    fun getFinishDateByGameId(id:Int): Long
+
     @Insert
     fun insert(gameRecord: GameRecord): Long
 

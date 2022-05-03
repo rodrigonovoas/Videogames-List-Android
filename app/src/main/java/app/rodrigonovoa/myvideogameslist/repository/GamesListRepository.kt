@@ -77,6 +77,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         return localDb.gameRecordDao().getRecordByGameId(id)
     }
 
+    suspend fun getFinishDateByGameId(id:Int): Long {
+        return localDb.gameRecordDao().getFinishDateByGameId(id)
+    }
+
     suspend fun insertGameRecord(record: GameRecord): Long{
         return localDb.gameRecordDao().insert(record)
     }

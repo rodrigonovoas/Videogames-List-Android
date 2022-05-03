@@ -36,15 +36,19 @@ class CommonListViewModel(
         return _pendingGames
     }
 
-    // TODO: this is the release date, not the complete date; retrieve from GameRecord
     private fun setGameCompleteDates(games:List<Game>){
-        val datesList = mutableListOf<String>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val datesList = mutableListOf<String>()
 
-        games.forEach {
-            datesList.add(dateFormatterUtil.fromTimeStampToDateString(it.released))
+            games.forEach {
+                if(it.gameid != null){
+                    val endDate = repository.getFinishDateByGameId(it.gameid)
+                    datesList.add(dateFormatterUtil.fromTimeStampToDateString(endDate))
+                }
+            }
+
+            _gameCompleteDates = datesList.toList()
         }
-
-        _gameCompleteDates = datesList.toList()
     }
 
     fun getGameCompleteDates(): List<String>{
@@ -72,7 +76,7 @@ class CommonListViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val games = repository.getAllGamesInGameRecorFromDb()
 
-            if (games.size > 0) {
+            if (games.isNotEmpty()) {
                 setGameList(mapGameToGamesListResponse(games))
             }
         }
