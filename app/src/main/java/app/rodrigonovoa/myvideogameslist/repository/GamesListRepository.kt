@@ -38,6 +38,10 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         return localDb.userDao().getFirstUSer()
     }
 
+    suspend fun updateUsername(username: String, id: Int): Int{
+        return localDb.userDao().updateUsername(username, id)
+    }
+
     /**
      * GAMES
      */

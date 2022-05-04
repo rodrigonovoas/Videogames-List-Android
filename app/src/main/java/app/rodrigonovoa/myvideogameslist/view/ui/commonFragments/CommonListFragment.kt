@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,11 +33,28 @@ class CommonListFragment : Fragment() {
 
         val tvTitle = view.findViewById<TextView>(R.id.tv_common_list_title)
         val recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
+        val imvBack = view.findViewById<ImageView>(R.id.imv_back)
 
         arguments?.getString("EXTRA_LIST_TYPE")?.let {
             listType = it
         }
 
+        clickListeners(imvBack)
+        gameListObserver(recycler)
+        setListTitle(tvTitle)
+    }
+
+    private fun clickListeners(imvBack:ImageView) {
+        imvBack.setOnClickListener {
+            removeCurrentFragment()
+        }
+    }
+
+    private fun removeCurrentFragment() {
+        getFragmentManager()?.beginTransaction()?.remove(this)?.commit();
+    }
+
+    private fun gameListObserver(recycler: RecyclerView) {
         this.model.gamesList.observe(viewLifecycleOwner) { gameList ->
             val games: List<GameListItemResponse> = gameList?.results ?: listOf()
             if(games.isNotEmpty() || model.getPendingGameList().isNotEmpty()){
@@ -52,8 +70,6 @@ class CommonListFragment : Fragment() {
                 )
             }
         }
-
-        setListTitle(tvTitle)
     }
 
     private fun setListTitle(tvTitle: TextView) {

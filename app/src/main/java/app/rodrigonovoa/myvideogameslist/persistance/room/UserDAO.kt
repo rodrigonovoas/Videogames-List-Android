@@ -13,6 +13,9 @@ interface UserDAO {
     @Query("SELECT * from User where userid = 1")
     fun getFirstUSer(): User
 
+    @Query("UPDATE User set name = :username where userid = :id")
+    fun updateUsername(username: String, id: Int): Int
+
     @Insert
     fun insert(user: User)
 }
