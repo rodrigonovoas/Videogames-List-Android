@@ -29,7 +29,6 @@ class AddPendingGameActivity : AppCompatActivity() {
 
         model.recordInserted.observe(this) { it ->
             if(it == true){
-                Toast.makeText(this, "pending game inserted", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }

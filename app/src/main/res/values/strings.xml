@@ -20,8 +20,8 @@
     <!-- ADD RECORD -->
     <string name="add_record_title_placeholder">Videogame Title</string>
     <string name="add_record_subtitle">Record</string>
-    <string name="add_record_from_date_error">Debe introducir una fecha de inicio</string>
-    <string name="add_record_to_date_error">Debe introducir una fecha de fin</string>
+    <string name="add_record_from_date_error">You must select initial date</string>
+    <string name="add_record_to_date_error">You must select complete date</string>
 
     <!-- ADD PENDING -->
 
