@@ -2,6 +2,7 @@ package app.rodrigonovoa.myvideogameslist
 
 import android.app.Application
 import app.rodrigonovoa.myvideogameslist.utils.KoinUtils
+import timber.log.Timber
 
 class MyVideogamesListApp: Application() {
     override fun onCreate() {
@@ -9,5 +10,7 @@ class MyVideogamesListApp: Application() {
 
         val koinUtils = KoinUtils(this@MyVideogamesListApp)
         koinUtils.setUpKoin()
+
+        Timber.plant(Timber.DebugTree())
     }
 }
