@@ -33,6 +33,8 @@ class GameDetailActivity : AppCompatActivity() {
                 if(fromRepo){
                     setAddRecordClickListener(game)
                 }
+
+                binding.pbGameDetail.visibility = View.GONE
             }
         }
 
@@ -60,6 +62,8 @@ class GameDetailActivity : AppCompatActivity() {
     private fun loadScreenData() {
         id = intent.getIntExtra("id", 0)
         fromRepo = intent.getBooleanExtra("fromRepo", true)
+
+        binding.pbGameDetail.visibility = View.VISIBLE
 
         if(fromRepo){
             binding.btnAddRecord.visibility = View.VISIBLE

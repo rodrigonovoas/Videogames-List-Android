@@ -6,102 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.gameDetail.GameDetailActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/game_detail_game_title"
-            android:textSize="35dp"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:background="#AFA1AF"/>
-
-        <ImageView
-            android:id="@+id/imv_game_image"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/image_placeholder" />
-
-        <TextView
-            android:id="@+id/tv_game_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="32dp"
-            android:textStyle="bold"
-            android:paddingBottom="10dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/game_detail_info_title"
-            android:textSize="35dp"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:background="#AFA1AF"/>
-
-        <TextView
-            android:id="@+id/tv_game_info_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:padding="10dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/game_detail_description_title"
-            android:textSize="35dp"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:background="#AFA1AF"/>
-
-        <TextView
-            android:id="@+id/tv_game_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:padding="10dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/game_detail_extra_title"
-            android:textSize="35dp"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:background="#AFA1AF"/>
-
-        <TextView
-            android:id="@+id/tv_game_extra_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:padding="10dp"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
-            <Button
-                android:id="@+id/btn_add_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/game_detail_add_to_record"/>
-            <Button
-                android:id="@+id/btn_add_pending"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/game_detail_add_to_pending"/>
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/game_detail_game_title"
+                android:textSize="35dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="#AFA1AF"/>
+
+            <ImageView
+                android:id="@+id/imv_game_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/image_placeholder" />
+
+            <TextView
+                android:id="@+id/tv_game_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="32dp"
+                android:textStyle="bold"
+                android:paddingBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/game_detail_info_title"
+                android:textSize="35dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="#AFA1AF"/>
+
+            <TextView
+                android:id="@+id/tv_game_info_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/game_detail_description_title"
+                android:textSize="35dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="#AFA1AF"/>
+
+            <TextView
+                android:id="@+id/tv_game_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/game_detail_extra_title"
+                android:textSize="35dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="#AFA1AF"/>
+
+            <TextView
+                android:id="@+id/tv_game_extra_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/btn_add_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_detail_add_to_record"/>
+                <Button
+                    android:id="@+id/btn_add_pending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/game_detail_add_to_pending"/>
+            </LinearLayout>
+        </LinearLayout>
+        
+        <ProgressBar
+            android:id="@+id/pb_game_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </ScrollView>

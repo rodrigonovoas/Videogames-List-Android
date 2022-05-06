@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,16 +26,20 @@ class CommonListFragment : Fragment() {
     val model: CommonListViewModel by inject()
     private val glideUtils: GlideUtils by inject()
     private val dateFormatterUtil: DateFormatterUtil by inject()
-    private lateinit var recycler: RecyclerView
     private var listType: String = ""
+
+    // VIEWS
+    private lateinit var recycler: RecyclerView
+    private lateinit var progressBar: ProgressBar
 
     @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val tvTitle = view.findViewById<TextView>(R.id.tv_common_list_title)
-        recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
         val imvBack = view.findViewById<ImageView>(R.id.imv_back)
+        recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
+        progressBar = view.findViewById<ProgressBar>(R.id.pb_list)
 
         arguments?.getString("EXTRA_LIST_TYPE")?.let {
             listType = it
@@ -74,6 +79,8 @@ class CommonListFragment : Fragment() {
                     clearAdapter()
                 }
             }
+
+            progressBar.visibility = View.GONE
         }
     }
 
@@ -92,6 +99,7 @@ class CommonListFragment : Fragment() {
     }
 
     private fun loadData() {
+        progressBar.visibility = View.VISIBLE
         clearAdapter()
         when(listType){
             Constants.GAMES_TYPE -> setGamesList()
@@ -112,6 +120,8 @@ class CommonListFragment : Fragment() {
                 this
             )
         }
+
+        progressBar.visibility = View.VISIBLE
     }
 
     @OptIn(InternalCoroutinesApi::class)
