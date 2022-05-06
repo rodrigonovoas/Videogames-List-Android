@@ -27,6 +27,9 @@
 
     <string name="add_pending_spinner_state_1">Pending</string>
     <string name="add_pending_spinner_state_2">Ongoing</string>
+    <string name="add_pending_add_button">Add</string>
+    <string name="add_pending_types_title">Type</string>
+    <string name="add_pending_notes_title">Notes</string>
 
     <!-- GAME DETAIL -->
     <string name="game_detail_add_to_record">ADD TO RECORDS</string>
