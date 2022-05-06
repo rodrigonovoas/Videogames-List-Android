@@ -36,7 +36,7 @@ class CommonListViewModel(
         return _pendingGames
     }
 
-    private fun setGameCompleteDates(games:List<Game>){
+    private fun setGameCompleteDates(games:List<Game>, response: GamesListResponse){
         viewModelScope.launch(Dispatchers.IO) {
             val datesList = mutableListOf<String>()
 
@@ -48,6 +48,7 @@ class CommonListViewModel(
             }
 
             _gameCompleteDates = datesList.toList()
+            setGameList(response)
         }
     }
 
@@ -77,7 +78,7 @@ class CommonListViewModel(
             val games = repository.getAllGamesInGameRecorFromDb()
 
             if (games.isNotEmpty()) {
-                setGameList(mapGameToGamesListResponse(games))
+                mapGameToGamesListResponse(games)
             }
         }
     }
@@ -112,7 +113,7 @@ class CommonListViewModel(
         }
     }
 
-    private fun mapGameToGamesListResponse(games:List<Game>): GamesListResponse{
+    private fun mapGameToGamesListResponse(games:List<Game>){
         var gameResponseDetailList: MutableList<GameListItemResponse> = mutableListOf()
 
         games.forEach {
@@ -121,9 +122,7 @@ class CommonListViewModel(
             )
         }
 
-        setGameCompleteDates(games)
-
-        return GamesListResponse(games.size, "", "", gameResponseDetailList.toList())
+        setGameCompleteDates(games, GamesListResponse(games.size, "", "", gameResponseDetailList.toList()))
     }
 
 }

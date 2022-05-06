@@ -25,6 +25,7 @@ class CommonListFragment : Fragment() {
     val model: CommonListViewModel by inject()
     private val glideUtils: GlideUtils by inject()
     private val dateFormatterUtil: DateFormatterUtil by inject()
+    private lateinit var recycler: RecyclerView
     private var listType: String = ""
 
     @OptIn(InternalCoroutinesApi::class)
@@ -32,7 +33,7 @@ class CommonListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val tvTitle = view.findViewById<TextView>(R.id.tv_common_list_title)
-        val recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
+        recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
         val imvBack = view.findViewById<ImageView>(R.id.imv_back)
 
         arguments?.getString("EXTRA_LIST_TYPE")?.let {
@@ -57,8 +58,8 @@ class CommonListFragment : Fragment() {
     private fun gameListObserver(recycler: RecyclerView) {
         this.model.gamesList.observe(viewLifecycleOwner) { gameList ->
             val games: List<GameListItemResponse> = gameList?.results ?: listOf()
+            recycler.layoutManager = LinearLayoutManager(context)
             if(games.isNotEmpty() || model.getPendingGameList().isNotEmpty()){
-                recycler.layoutManager = LinearLayoutManager(context)
                 recycler.adapter = CommonListAdapter(
                     games,
                     listType,
@@ -68,6 +69,10 @@ class CommonListFragment : Fragment() {
                     model.getGameCompleteDates(),
                     this
                 )
+            }else{
+                if(model.getPendingGameList().isEmpty()){
+                    clearAdapter()
+                }
             }
         }
     }
@@ -87,10 +92,25 @@ class CommonListFragment : Fragment() {
     }
 
     private fun loadData() {
+        clearAdapter()
         when(listType){
             Constants.GAMES_TYPE -> setGamesList()
             Constants.RECORDS_TYPE -> setRecordsList()
             Constants.PENDING_TYPE ->  setPendingList()
+        }
+    }
+
+    private fun clearAdapter(){
+        if(recycler != null && recycler.adapter != null){
+            recycler?.adapter =  CommonListAdapter(
+                listOf(),
+                listType,
+                glideUtils,
+                dateFormatterUtil,
+                listOf(),
+                listOf(),
+                this
+            )
         }
     }
 

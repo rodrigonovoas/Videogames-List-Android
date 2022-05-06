@@ -125,7 +125,7 @@ class CommonListAdapter(
     }
 
     private fun setRecordsTypeView(viewHolder: ViewHolder, position: Int) {
-        if(!completedDates.isEmpty()){
+        if(completedDates.isNotEmpty()){
             viewHolder.tvGameRelaseDate.text =
                 viewHolder.tvGameRelaseDate.context.getString(R.string.common_list_complete_date) + " " + completedDates[position]
         }else{

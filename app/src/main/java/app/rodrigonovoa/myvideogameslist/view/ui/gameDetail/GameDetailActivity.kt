@@ -27,19 +27,6 @@ class GameDetailActivity : AppCompatActivity() {
         binding = ActivityGameDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        id = intent.getIntExtra("id", 0)
-        fromRepo = intent.getBooleanExtra("fromRepo", true)
-
-        if(fromRepo){
-            binding.btnAddRecord.visibility = View.VISIBLE
-            model.getGameFromRepo(id.toInt())
-            model.checkIfGameRecordExists(id.toInt())
-            model.checkIfPendingGameExists(id.toInt())
-        }else{
-            binding.btnAddRecord.visibility = View.GONE
-            model.getGameFromLocalDb(id.toInt())
-        }
-
         this.model.retrievedGame.observe(this) { game ->
             if(game != null){
                 setUpLayout(game)
@@ -61,6 +48,29 @@ class GameDetailActivity : AppCompatActivity() {
                 binding.btnAddPending.isEnabled = false
                 binding.btnAddPending.text = getString(R.string.common_added_pending_list)
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadScreenData()
+    }
+
+    private fun loadScreenData() {
+        id = intent.getIntExtra("id", 0)
+        fromRepo = intent.getBooleanExtra("fromRepo", true)
+
+        if(fromRepo){
+            binding.btnAddRecord.visibility = View.VISIBLE
+            binding.btnAddPending.visibility = View.VISIBLE
+            model.getGameFromRepo(id.toInt())
+            model.checkIfGameRecordExists(id.toInt())
+            model.checkIfPendingGameExists(id.toInt())
+        }else{
+            binding.btnAddRecord.visibility = View.GONE
+            binding.btnAddPending.visibility = View.GONE
+            model.getGameFromLocalDb(id.toInt())
         }
     }
 

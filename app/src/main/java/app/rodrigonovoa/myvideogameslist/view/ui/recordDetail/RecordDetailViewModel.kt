@@ -43,11 +43,15 @@ class RecordDetailViewModel(private val repository: GamesListRepository, private
                 if(isDeleted == 1){
                     val gameExists = dbUtils.checkIfGameExistInPendingList(gameRecord.gameid).await()
 
-                    if(gameExists.isNotEmpty()){
-                        repository.deleteGameById(gameRecord.gameid)
-                    }
+                    if(gameExists.isEmpty()){
+                       val gameDeleted = repository.deleteGameById(gameRecord.gameid)
 
-                    _recordDeleted.postValue(true)
+                        if(gameDeleted == 1){
+                            _recordDeleted.postValue(true)
+                        }
+                    }else{
+                        _recordDeleted.postValue(true)
+                    }
                 }
             }
         }
