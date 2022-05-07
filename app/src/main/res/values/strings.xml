@@ -23,6 +23,11 @@
     <string name="add_record_from_date_error">You must select initial date</string>
     <string name="add_record_to_date_error">You must select complete date</string>
 
+    <string name="add_record_from_date_title">From</string>
+    <string name="add_record_to_date_title">To</string>
+    <string name="add_record_score_title">Score (0 to 10)</string>
+    <string name="add_record_notes_title">Note</string>
+
     <!-- ADD PENDING -->
 
     <string name="add_pending_spinner_state_1">Pending</string>
@@ -43,6 +48,15 @@
     <string name="game_detail_info_platforms">Platforms: </string>
     <string name="game_detail_info_publishers">Publisher/s: </string>
     <string name="game_detail_info_rate">ESRB Rating: </string>
+
+    <!-- RECORD DETAIL -->
+
+    <string name="record_detail_complete_dates">Complete Dates</string>
+    <string name="record_detail_from_title">From</string>
+    <string name="record_detail_to_title">To</string>
+    <string name="record_detail_score_title">Score (out of 10)</string>
+    <string name="record_detail_extra_title">Extra</string>
+    <string name="record_detail_delete_button">Delete</string>
 
     <!-- COMMON LIST -->
     <string name="common_list_title_games">Games &#127918;</string>

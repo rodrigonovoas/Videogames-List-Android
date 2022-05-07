@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:background="#D6EFF2"
                 android:paddingLeft="5dp"
-                android:text="Complete Dates"
+                android:text="@string/record_detail_complete_dates"
                 android:textStyle="bold"
                 android:textSize="24dp"/>
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="15dp"
-                android:text="From"
+                android:text="@string/record_detail_from_title"
                 android:textSize="18dp"
                 android:textStyle="bold"/>
 
@@ -68,7 +68,7 @@
                 android:paddingLeft="15dp"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:text="To" />
+                android:text="@string/record_detail_to_title" />
 
             <TextView
                 android:id="@+id/tv_to_content"
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#D6EFF2"
-                android:text="Score"
+                android:text="@string/record_detail_score_title"
                 android:textStyle="bold"
                 android:textSize="24dp"
                 android:layout_marginTop="10dp"
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#D6EFF2"
-                android:text="Extra"
+                android:text="@string/record_detail_extra_title"
                 android:textStyle="bold"
                 android:textSize="24dp"
                 android:layout_marginTop="10dp"
@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Delete"
+            android:text="@string/record_detail_delete_button"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>

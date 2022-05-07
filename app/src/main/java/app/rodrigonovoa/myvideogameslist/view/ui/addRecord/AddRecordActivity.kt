@@ -3,6 +3,8 @@ package app.rodrigonovoa.myvideogameslist.view.ui.addRecord
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
@@ -10,6 +12,7 @@ import app.rodrigonovoa.myvideogameslist.R
 import app.rodrigonovoa.myvideogameslist.databinding.ActivityAddRecordBinding
 import app.rodrigonovoa.myvideogameslist.model.domain.GameDetailResponse
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -85,6 +88,26 @@ class AddRecordActivity : AppCompatActivity() {
         binding.edtFinishDate.setOnClickListener {
             openDatePicker(toDateSetListener, toCalendar)
         }
+
+        binding.edtScore.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                Timber.i("after: " + s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                Timber.i("before: " + s.toString())
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!s.isNullOrEmpty()){
+                    val num = s.toString().toInt()
+
+                    if(num > 10){
+                        binding.edtScore.setText("")
+                    }
+                }
+            }
+        })
     }
 
     private fun openDatePicker(listener: DatePickerDialog.OnDateSetListener, cal: Calendar?) {
