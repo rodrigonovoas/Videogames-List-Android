@@ -4,7 +4,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateFormatterUtil {
-    fun fromDateStringToTimeStamp(date:String):Long{
+    fun fromDateStringToTimeStamp(date:String?):Long{
+        if(date == null){
+            return 0
+        }
         val formatedDate = SimpleDateFormat("yyyy-MM-dd").parse(date)
         return formatedDate.time
     }

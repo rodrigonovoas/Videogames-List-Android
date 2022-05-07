@@ -78,22 +78,31 @@ class GameDetailViewModel(private val repository: GamesListRepository): ViewMode
             "21-04-2022", game.image, game.website, getPublishersFromGame(game.publisher) , getEsrbRatingFromGame(game.esrbRating), getPlatformsFromGame(game.platforms))
     }
 
-    private fun getPublishersFromGame(content: String): List<PublisherDetailResponse>{
+    private fun getPublishersFromGame(content: String?): List<PublisherDetailResponse>{
         val list = mutableListOf<PublisherDetailResponse>()
-        list.add(PublisherDetailResponse(0, content))
+        if(content != null){
+            list.add(PublisherDetailResponse(0, content))
+        }
 
         return list.toList()
     }
 
-    private fun getPlatformsFromGame(content: String): List<PlatformResponse>{
+    private fun getPlatformsFromGame(content: String?): List<PlatformResponse>{
         val list = mutableListOf<PlatformResponse>()
-        list.add(PlatformResponse(PlatformDetailResponse(0,content)))
+
+        if(content != null){
+            list.add(PlatformResponse(PlatformDetailResponse(0,content)))
+        }
 
         return list.toList()
     }
 
-    private fun getEsrbRatingFromGame(content: String): EsrbRatingDetailResponse{
-        return EsrbRatingDetailResponse(content)
+    private fun getEsrbRatingFromGame(content: String?): EsrbRatingDetailResponse?{
+        if(content != null){
+            return EsrbRatingDetailResponse(content)
+        }else{
+            return null
+        }
     }
 
 }

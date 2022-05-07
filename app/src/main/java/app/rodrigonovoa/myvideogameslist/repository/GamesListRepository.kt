@@ -25,6 +25,12 @@ class GamesListRepository(private val apiService: ApiService, private val localD
         emit(game)
     }.flowOn(Dispatchers.IO)
 
+    suspend fun getGamesByQuery(query: String): Flow<Response<GamesListResponse?>> = flow {
+        val game = apiService.getGameByQuery(query).execute()
+
+        emit(game)
+    }.flowOn(Dispatchers.IO)
+
     // ROOM
 
     /**

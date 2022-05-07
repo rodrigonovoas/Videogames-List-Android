@@ -9,10 +9,10 @@ data class Game(
     val name: String,
     val description: String,
     val released: Long,
-    val publisher: String,
-    val platforms: String,
-    val esrbRating: String,
-    val metacritic: Int,
-    val website: String,
-    val image: String
+    val publisher: String?,
+    val platforms: String?,
+    val esrbRating: String?,
+    val metacritic: Int?,
+    val website: String?,
+    val image: String?
 )

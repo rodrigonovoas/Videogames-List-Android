@@ -1,10 +1,13 @@
 package app.rodrigonovoa.myvideogameslist.view.ui.commonFragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -20,6 +23,7 @@ import app.rodrigonovoa.myvideogameslist.view.adapters.CommonListAdapter
 import app.rodrigonovoa.myvideogameslist.utils.GlideUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class CommonListFragment : Fragment() {
 
@@ -38,6 +42,8 @@ class CommonListFragment : Fragment() {
 
         val tvTitle = view.findViewById<TextView>(R.id.tv_common_list_title)
         val imvBack = view.findViewById<ImageView>(R.id.imv_back)
+        val imvSearch = view.findViewById<ImageView>(R.id.imv_search)
+        val edtQuery = view.findViewById<EditText>(R.id.edt_game_filter)
         recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
         progressBar = view.findViewById<ProgressBar>(R.id.pb_list)
 
@@ -45,15 +51,26 @@ class CommonListFragment : Fragment() {
             listType = it
         }
 
-        clickListeners(imvBack)
+        clickListeners(imvBack, imvSearch, edtQuery)
         gameListObserver(recycler)
         setListTitle(tvTitle)
     }
 
-    private fun clickListeners(imvBack:ImageView) {
+    @OptIn(InternalCoroutinesApi::class)
+    private fun clickListeners(imvBack:ImageView, imvSearch: ImageView, edtQuery: EditText) {
         imvBack.setOnClickListener {
             removeCurrentFragment()
         }
+
+        imvSearch.setOnClickListener {
+            if(edtQuery.text.toString().isNotEmpty()){
+                val query = edtQuery.text.toString()
+                model.getGamesByQueryFromRepo(query)
+            }else{
+                clearAdapter()
+            }
+        }
+
     }
 
     private fun removeCurrentFragment() {

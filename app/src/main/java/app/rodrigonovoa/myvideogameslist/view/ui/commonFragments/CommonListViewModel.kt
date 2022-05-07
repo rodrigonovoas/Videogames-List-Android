@@ -73,6 +73,23 @@ class CommonListViewModel(
         }
     }
 
+    @InternalCoroutinesApi
+    fun getGamesByQueryFromRepo(query: String){
+        viewModelScope.launch {
+            repository.getGamesByQuery(query)
+                .catch {
+                    Log.d("COMMON_LIST","error")
+                    // error handling
+                }
+                .collect {
+                    val list = it.body()
+                    if(list != null){
+                        setGameList(list)
+                    }
+                }
+        }
+    }
+
     fun getGamesInGameRecordsFromLocalDb(){
         viewModelScope.launch(Dispatchers.IO) {
             val games = repository.getAllGamesInGameRecorFromDb()

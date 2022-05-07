@@ -126,7 +126,7 @@ class GameDetailActivity : AppCompatActivity() {
         tv_extra.setText(content)
     }
 
-    private fun setImageOnLayout(imv: ImageView, src: String){
+    private fun setImageOnLayout(imv: ImageView, src: String?){
         if(src != null && !src.isEmpty()){
             Glide.with(this)
                 .load(src)
