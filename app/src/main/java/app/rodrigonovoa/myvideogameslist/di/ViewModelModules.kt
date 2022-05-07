@@ -18,5 +18,5 @@ val viewModelModules = module {
     viewModel { RecordDetailViewModel(get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { AddPendingGameViewModel(get(), get()) }
-    viewModel { UserOptionsViewModel(get()) }
+    viewModel { UserOptionsViewModel(get(), get()) }
 }

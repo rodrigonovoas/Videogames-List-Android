@@ -91,19 +91,20 @@ class GameDetailActivity : AppCompatActivity() {
     private fun setInfoOnLayout(game: GameDetailResponse, tv_info: TextView){
         var content: String = ""
 
-        content = getString(R.string.game_detail_info_release) + game.released
+        content = getString(R.string.game_detail_info_release) + " " + game.released
 
-        if(game.publishers != null){
-            content += "\n" + getString(R.string.game_detail_info_publishers)
+        if (game.publishers != null) {
+            content += "\n" + getString(R.string.game_detail_info_publishers) + " "
+
             game.publishers.forEach {
-                content += it.name + ","
+                content += it.name + ", "
             }
 
             content = content.dropLast(1)
         }
 
         if (game.platforms != null) {
-            content += "\n" + getString(R.string.game_detail_info_platforms)
+            content += "\n" + getString(R.string.game_detail_info_platforms)  + " "
             game.platforms.forEach {
                 if (it.platform != null) {
                     content += it.platform.name + ","

@@ -47,6 +47,14 @@ class UserOptionsFragment : Fragment() {
         binding.imvChange.setOnClickListener {
             model.updateUsername(binding.edtUsernameContent.text.toString(), 1)
         }
+
+        binding.imvBack.setOnClickListener {
+            removeCurrentFragment()
+        }
+    }
+
+    private fun removeCurrentFragment() {
+        getFragmentManager()?.beginTransaction()?.remove(this)?.commit();
     }
 
     override fun onDestroyView() {
