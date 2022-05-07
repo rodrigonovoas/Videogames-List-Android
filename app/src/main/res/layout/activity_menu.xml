@@ -12,107 +12,98 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_videogames"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_primary"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/ll_videogames"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/color_secondary"
-                android:gravity="center"
-                android:layout_weight="1">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/menu_games_icon" />
 
-                <ImageView
-                    android:layout_width="85.3dp"
-                    android:layout_height="85.3dp"
-                    android:src="@drawable/menu_games_icon" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/menu_videogames_option"
-                    android:textSize="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_my_list"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/color_complement_2"
-                android:gravity="center"
-                android:layout_weight="1">
-                <ImageView
-                    android:layout_width="85.3dp"
-                    android:layout_height="85.3dp"
-                    android:src="@drawable/menu_mylist_icon"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/menu_my_records_option"
-                    android:textSize="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"/>
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_videogames_option"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_my_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@color/color_secondary">
 
-            <LinearLayout
-                android:id="@+id/ll_pending_games"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/color_complement_2"
-                android:gravity="center"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="85.3dp"
-                    android:layout_height="85.3dp"
-                    android:src="@drawable/menu_pending_icon" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/menu_pending_games_option"
-                    android:textSize="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_user_options"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/color_secondary"
-                android:gravity="center"
-                android:layout_weight="1">
-                <ImageView
-                    android:layout_width="85.3dp"
-                    android:layout_height="85.3dp"
-                    android:src="@drawable/menu_options_icon"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/menu_user_configuration_option"
-                    android:textSize="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"/>
-            </LinearLayout>
-
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/menu_mylist_icon"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_my_records_option"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_pending_games"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@color/color_tertiary">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/menu_pending_icon" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_pending_games_option"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_user_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@color/color_quaternary">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/menu_options_icon"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_user_configuration_option"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"/>
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

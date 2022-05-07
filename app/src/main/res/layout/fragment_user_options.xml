@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.userOptions.UserOptionsFragment"
-    android:background="@color/color_complement_2">
+    android:background="@color/color_quaternary">
 
     <TextView
         android:id="@+id/tv_options_title"
@@ -27,7 +27,7 @@
         android:text="Username"
         android:textSize="24dp"
         android:padding="10dp"
-        android:background="#D6EFF2"
+        android:background="@color/color_quaternary_complement_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="#D6EFF2"
+        android:background="@color/color_quaternary_complement_1"
         android:padding="10dp"
         android:text="Skip Splash Screen"
         android:textSize="24dp"
@@ -76,17 +76,39 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="176dp"
-        android:textOff="No"
-        android:textOn="Yes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_skip_splash" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YES"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_github_repo_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toEndOf="@+id/sw_skip_splash"
+        app:layout_constraintTop_toBottomOf="@+id/tv_skip_splash"
+        app:layout_constraintVertical_bias="0.564" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_github_repo_title"
+        app:layout_constraintEnd_toStartOf="@+id/sw_skip_splash"
+        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_skip_splash"
+        app:layout_constraintVertical_bias="0.56" />
 
     <TextView
         android:id="@+id/tv_github_repo_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="#D6EFF2"
+        android:background="@color/color_quaternary_complement_1"
         android:padding="10dp"
         android:text="GitHub Repository"
         android:textSize="24dp"

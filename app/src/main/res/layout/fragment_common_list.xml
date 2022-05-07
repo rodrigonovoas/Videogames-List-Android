@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.commonFragments.CommonListFragment"
-    android:background="#AFA1AF">
+    android:background="@color/color_primary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="30dp"
-            android:textColor="@color/white"
             android:text="@string/common_list_title_games"/>
 
         <androidx.recyclerview.widget.RecyclerView
