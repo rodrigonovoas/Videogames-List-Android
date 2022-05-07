@@ -20,6 +20,7 @@
             android:text="@string/common_list_title_games"/>
 
         <LinearLayout
+            android:id="@+id/ll_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

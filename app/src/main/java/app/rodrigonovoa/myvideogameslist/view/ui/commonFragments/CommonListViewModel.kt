@@ -25,10 +25,10 @@ class CommonListViewModel(
 ) : ViewModel() {
     private var _gameCompleteDates: List<String> = listOf()
     private var _pendingGames: List<PendingGameDetail> = listOf()
-    private val _gamesList = MutableLiveData<GamesListResponse>().apply { postValue(null)}
-    val gamesList: LiveData<GamesListResponse> get() = _gamesList
+    private val _gamesList = MutableLiveData<GamesListResponse?>().apply { postValue(null)}
+    val gamesList: LiveData<GamesListResponse?> get() = _gamesList
 
-    fun setGameList(list: GamesListResponse){
+    fun setGameList(list: GamesListResponse?){
         _gamesList.postValue(list)
     }
 
@@ -57,23 +57,6 @@ class CommonListViewModel(
     }
 
     @InternalCoroutinesApi
-    fun getGamesFromRepo(){
-        viewModelScope.launch {
-            repository.getGamesListFromRepository()
-                .catch {
-                    Log.d("COMMON_LIST","error")
-                    // error handling
-                }
-                .collect {
-                    val list = it.body()
-                    if(list != null){
-                        setGameList(list)
-                    }
-                }
-        }
-    }
-
-    @InternalCoroutinesApi
     fun getGamesByQueryFromRepo(query: String){
         viewModelScope.launch {
             repository.getGamesByQuery(query)
@@ -83,9 +66,7 @@ class CommonListViewModel(
                 }
                 .collect {
                     val list = it.body()
-                    if(list != null){
-                        setGameList(list)
-                    }
+                    setGameList(list)
                 }
         }
     }
@@ -96,6 +77,8 @@ class CommonListViewModel(
 
             if (games.isNotEmpty()) {
                 mapGameToGamesListResponse(games)
+            }else{
+                setGameList(null)
             }
         }
     }
@@ -104,7 +87,7 @@ class CommonListViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val pendingGames = getPendingGames().await()
             _pendingGames = pendingGames
-            setGameList(GamesListResponse(0, "", "", null))
+            setGameList(null)
         }
     }
 

@@ -119,8 +119,9 @@ class GameDetailActivity : AppCompatActivity() {
 
     private fun setExtraOnLayout(game: GameDetailResponse, tv_extra: TextView){
         var content = ""
+        val metacritic = game.metacritic ?: "Unknown"
 
-        content += getString(R.string.common_list_metacritic) + " " + game.metacritic
+        content += getString(R.string.common_list_metacritic) + " " + metacritic
         content += "\n" + game.website
 
         tv_extra.setText(content)

@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.rodrigonovoa.myvideogameslist.Constants
@@ -35,6 +32,8 @@ class CommonListFragment : Fragment() {
     // VIEWS
     private lateinit var recycler: RecyclerView
     private lateinit var progressBar: ProgressBar
+    private lateinit var edtQuery: EditText
+    private lateinit var llSearchBar: LinearLayout
 
     @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,9 +42,11 @@ class CommonListFragment : Fragment() {
         val tvTitle = view.findViewById<TextView>(R.id.tv_common_list_title)
         val imvBack = view.findViewById<ImageView>(R.id.imv_back)
         val imvSearch = view.findViewById<ImageView>(R.id.imv_search)
-        val edtQuery = view.findViewById<EditText>(R.id.edt_game_filter)
+
+        edtQuery = view.findViewById<EditText>(R.id.edt_game_filter)
         recycler = view.findViewById<RecyclerView>(R.id.rc_common_list)
         progressBar = view.findViewById<ProgressBar>(R.id.pb_list)
+        llSearchBar = view.findViewById<LinearLayout>(R.id.ll_search_bar)
 
         arguments?.getString("EXTRA_LIST_TYPE")?.let {
             listType = it
@@ -64,13 +65,13 @@ class CommonListFragment : Fragment() {
 
         imvSearch.setOnClickListener {
             if(edtQuery.text.toString().isNotEmpty()){
+                setProgressBarVisible(true)
                 val query = edtQuery.text.toString()
                 model.getGamesByQueryFromRepo(query)
             }else{
                 clearAdapter()
             }
         }
-
     }
 
     private fun removeCurrentFragment() {
@@ -97,7 +98,7 @@ class CommonListFragment : Fragment() {
                 }
             }
 
-            progressBar.visibility = View.GONE
+            setProgressBarVisible(false)
         }
     }
 
@@ -116,13 +117,22 @@ class CommonListFragment : Fragment() {
     }
 
     private fun loadData() {
-        progressBar.visibility = View.VISIBLE
-        clearAdapter()
-        when(listType){
-            Constants.GAMES_TYPE -> setGamesList()
-            Constants.RECORDS_TYPE -> setRecordsList()
-            Constants.PENDING_TYPE ->  setPendingList()
+        if(!listType.equals(Constants.GAMES_TYPE)){
+            llSearchBar.visibility = View.GONE
+            clearAdapter()
+            when(listType){
+                Constants.RECORDS_TYPE -> setRecordsList()
+                Constants.PENDING_TYPE ->  setPendingList()
+            }
         }
+    }
+
+    private fun setProgressBarVisible(visible: Boolean) {
+      if(visible){
+          progressBar.visibility = View.VISIBLE
+      }else{
+          progressBar.visibility = View.GONE
+      }
     }
 
     private fun clearAdapter(){
@@ -137,20 +147,15 @@ class CommonListFragment : Fragment() {
                 this
             )
         }
-
-        progressBar.visibility = View.VISIBLE
-    }
-
-    @OptIn(InternalCoroutinesApi::class)
-    private fun setGamesList(){
-        model.getGamesFromRepo()
     }
 
     private fun setRecordsList(){
+        setProgressBarVisible(true)
         model.getGamesInGameRecordsFromLocalDb()
     }
 
     private fun setPendingList(){
+        setProgressBarVisible(true)
         model.getPendingGamesFromLocalDb()
     }
 

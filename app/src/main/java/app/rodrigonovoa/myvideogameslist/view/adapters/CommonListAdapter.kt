@@ -138,7 +138,9 @@ class CommonListAdapter(
 
     private fun setGamesTypeView(viewHolder: ViewHolder, game: GameListItemResponse) {
         viewHolder.tvGameRelaseDate.text = game.released
-        viewHolder.tvGameMetacritic.text = game.metacritic.toString()
+
+        val metacritic = game.metacritic?.toString() ?: "Unknown"
+        viewHolder.tvGameMetacritic.text = metacritic
 
         val platforms = game.platforms ?: listOf()
 
